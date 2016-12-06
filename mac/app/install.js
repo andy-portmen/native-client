@@ -36,8 +36,10 @@ function exists (directory, callback) {
 var dir = path.join('/usr/share', 'com.add0n.node');
 var name = 'com.add0n.node';
 var ids = {
-  chrome: ['pghoffeollloldpepedofbmlokimpblo'],
-  firefox: ['something@mozilla.org']
+  chrome: [
+    'lmeddoobegbaiopohmpmmobpnpjifpii' // open in Firefox (Chrome)
+  ],
+  firefox: []
 };
 
 function manifest (root, type, callback) {
@@ -68,6 +70,9 @@ function manifest (root, type, callback) {
 
   });
 }
+
+console.error(process.argv)
+
 function application (callback) {
   exists(dir, (e) => {
     if (e) {
@@ -75,7 +80,7 @@ function application (callback) {
     }
 
     let isNode = process.argv[2] !== '--add_node';
-    let run = isNode ? '#!/bin/bash\nnode host.js' : '#!/bin/bash\n./node host.js';
+    let run = isNode ? `#!/bin/bash\n${process.argv[2]} host.js` : '#!/bin/bash\n./node host.js';
     fs.writeFile(path.join(dir, 'run.sh'), run, (e) => {
       if (e) {
         throw e;

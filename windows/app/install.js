@@ -18,8 +18,10 @@ function exists (directory, callback) {
 var dir = path.join(process.argv[2], 'com.add0n.node');
 var name = 'com.add0n.node';
 var ids = {
-  chrome: ['gfhloibcnnngmfkpnpbbgblbgcghaapb'],
-  firefox: ['something@mozilla.org']
+  chrome: [
+    'lmeddoobegbaiopohmpmmobpnpjifpii' // open in Firefox (Chrome)
+  ],
+  firefox: []
 };
 
 function manifest (type, callback) {
