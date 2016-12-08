@@ -3,7 +3,7 @@
 var spawn = require('child_process').spawn;
 
 var config = {
-  version: '0.1.0',
+  version: '0.1.3',
   isWin: /^win/.test(process.platform)
 };
 
@@ -19,7 +19,7 @@ function observe (msg, push, done) {
     done();
   }
   else if (msg.cmd === 'spawn') {
-    let sp = spawn(msg.command, msg.arguments);
+    let sp = spawn(msg.command, msg.arguments || [], msg.properties || {});
     sp.stdout.on('data', stdout => push({stdout}));
     sp.stderr.on('data', stderr => push({stderr}));
     sp.on('close', (code) => {
@@ -28,7 +28,7 @@ function observe (msg, push, done) {
     });
   }
   else if (msg.cmd === 'exec') {
-    let sp = spawn(msg.command, msg.arguments);
+    let sp = spawn(msg.command, msg.arguments || [], msg.properties || {});
     let stderr = '', stdout = '';
     sp.stdout.on('data', data => stdout += data);
     sp.stderr.on('data', data => stderr += data);
@@ -50,7 +50,8 @@ function observe (msg, push, done) {
   else {
     push({
       error: 'cmd is unknown',
-      cmd: msg.cmd
+      cmd: msg.cmd,
+      code: 1000
     });
     done();
   }

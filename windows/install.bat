@@ -23,9 +23,10 @@ exit /b
 
 :run
 
-copy
+echo Writting to Chrome Registry
 REG ADD "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%ProgramFiles%\com.add0n.node\manifest-chrome.json" /f
 
+echo Writting to Firefox
 for %%f in ("%PROGRAMFILES%") do SET SHORT_PATH=%%~sf
 REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Mozilla\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%SHORT_PATH%\com.add0n.node\manifest-firefox.json" /f
 
