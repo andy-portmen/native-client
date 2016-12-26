@@ -12,6 +12,8 @@ exports.ids = {
     'noedpljikmfalclpadmnjbabbignpfge', // Open in IE (Opera)
     'ocnfecjfebnllnapjjoncgjnnkfmobjc', // Media Converter (Chrome)
     'fabccabfpmdadbhljpcmcbmepepfllnb', // Media Converter (Opera)
+    'jgpghknlbaljigdhcjimjnkkjniiipmm', // Open in GIMP (Chrome)
+    'cmjahocdpafkodabbojjaebogoigcipj', // Open in GIMP (Opera)
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE

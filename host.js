@@ -20,7 +20,7 @@ var https = lazyRequire('./follow-redirects').https;
 var server, files = [];
 
 var config = {
-  version: '0.1.6'
+  version: '0.1.7'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -163,6 +163,7 @@ function observe (msg, push, done) {
       else {
         push({
           files,
+          folders: files.filter(file => fs.statSync(path.join(msg.path, file)).isDirectory()),
           separator: path.sep
         });
       }
@@ -213,6 +214,48 @@ function observe (msg, push, done) {
       socket.setTimeout(msg.timeout || 60000);
       socket.on('timeout', () => request.abort());
     });
+  }
+  else if (msg.cmd === 'save-data') {
+    let matches = msg.data.match(/^data:.+\/(.+);base64,(.*)$/);
+    if (matches && matches.length) {
+      let ext = matches[1];
+      let data = matches[2];
+      let buffer = new Buffer(data, 'base64');
+
+      fs.mkdtemp(os.tmpdir(), (err, folder) => {
+        if (err) {
+          push({
+            error: err.message,
+            code: 1007
+          });
+          done();
+        }
+        let file =  path.join(folder, 'image.' + ext);
+        fs.writeFile(file, buffer, (err) => {
+          if (err) {
+            push({
+              error: err.message,
+              code: 1006
+            });
+            done();
+          }
+          else {
+            push({
+              code: 0,
+              file
+            });
+            done();
+          }
+        });
+      });
+    }
+    else {
+      push({
+        error: 'cannot parse data-uri',
+        code: 1005
+      });
+      done();
+    }
   }
   else {
     push({
