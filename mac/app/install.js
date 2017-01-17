@@ -3,6 +3,13 @@
 var fs = require('fs');
 var path = require('path');
 
+var share = process.argv.filter(a => a.startsWith('--custom-dir=')).map(a => a.split('=')[1])[0] || '/usr/share';
+if (share[0] === '~') {
+  share = path.join(process.env.HOME, share.slice(1));
+}
+share = path.resolve(share);
+console.log(' -> Root directory is', share);
+
 function exists (directory, callback) {
   let root = '/';
   let dirs = directory.split('/');
@@ -33,11 +40,12 @@ function exists (directory, callback) {
   one();
 }
 
-var dir = path.join('/usr/share', 'com.add0n.node');
+var dir = path.join(share, 'com.add0n.node');
 var name = 'com.add0n.node';
 var ids = require('./config.js').ids;
 
 function manifest (root, type, callback) {
+  console.log(' -> Creating a directory at', root);
   exists(root, (e) => {
     if (e) {
       throw e;
@@ -62,17 +70,17 @@ function manifest (root, type, callback) {
       }
       callback();
     });
-
   });
 }
 
 function application (callback) {
+  console.log(' -> Creating a directory at', dir);
   exists(dir, (e) => {
     if (e) {
       throw e;
     }
 
-    let isNode = process.argv[2] !== '--add_node';
+    let isNode = process.argv.filter(a => a === '--add_node').length;
     let run = isNode ? `#!/bin/bash\n${process.argv[2]} host.js` : '#!/bin/bash\n./node host.js';
     fs.writeFile(path.join(dir, 'run.sh'), run, (e) => {
       if (e) {
@@ -95,7 +103,7 @@ function application (callback) {
 function chrome (callback) {
   if (ids.chrome.length) {
     manifest('/Library/Google/Chrome/NativeMessagingHosts', 'chrome', callback);
-    console.error('Chrome Browser is supported');
+    console.error(' -> Chrome Browser is supported');
   }
   else {
     callback();
@@ -104,7 +112,7 @@ function chrome (callback) {
 function firefox (callback) {
   if (ids.firefox.length) {
     manifest('/Library/Application Support/Mozilla/NativeMessagingHosts', 'firefox', callback);
-    console.error('Firefox Browser is supported');
+    console.error(' -> Firefox Browser is supported');
   }
   else {
     callback();
@@ -112,7 +120,7 @@ function firefox (callback) {
 }
 chrome(() => firefox(() => {
   application(() => {
-    console.error('Native Host is installed in', dir);
-    console.error('>> Application is ready to use <<');
+    console.error(' -> Native Host is installed in', dir);
+    console.error('\n\n>>> Application is ready to use <<<\n\n');
   });
 }));

@@ -63,7 +63,7 @@ function application (callback) {
 function chrome (callback) {
   if (ids.chrome.length) {
     manifest('chrome', callback);
-    console.error('Chrome Browser is supported');
+    console.error('.. Chrome Browser is supported');
   }
   else {
     callback();
@@ -72,7 +72,7 @@ function chrome (callback) {
 function firefox (callback) {
   if (ids.firefox.length) {
     manifest('firefox', callback);
-    console.error('Firefox Browser is supported');
+    console.error('.. Firefox Browser is supported');
   }
   else {
     callback();
@@ -80,7 +80,7 @@ function firefox (callback) {
 }
 chrome(() => firefox(() => {
   application(() => {
-    console.error('Native Host is installed in', dir);
-    console.error('>> Application is ready to use <<');
+    console.error('.. Native Host is installed in', dir);
+    console.error('\n\n>>> Application is ready to use <<<\n\n');
   });
 }));
