@@ -17,6 +17,7 @@ exports.ids = {
     'bifmfjgpgndemajpeeoiopbeilbaifdo', // External Application Button (Chrome)
     'enemdfoackoekaedijjmjlckkleokhih', // External Application Button (Opera)
     'ihpiinojhnfhpdmmacgmpoonphhimkaj', // Open in VLC (Chrome)
+    'gmkfhhacdjeabnmomjdnachnmmaaacli', // Test
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE

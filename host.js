@@ -20,7 +20,7 @@ var https = lazyRequire('./follow-redirects').https;
 var server, files = [];
 
 var config = {
-  version: '0.2.1'
+  version: '0.2.2'
 };
 // closing node when parent process is killed
 process.stdin.resume();
