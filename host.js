@@ -20,7 +20,7 @@ var https = lazyRequire('./follow-redirects').https;
 var server, files = [];
 
 var config = {
-  version: '0.2.2'
+  version: '0.2.3'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -139,7 +139,10 @@ function observe (msg, push, done) {
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
-    let sp = spawn(msg.command, msg.arguments || [], Object.assign({env: process.env}, msg.properties));
+    let sp = spawn(msg.command, msg.arguments || [], Object.assign({
+      env: process.env,
+      detached: true
+    }, msg.properties));
     let stderr = '', stdout = '';
     sp.stdout.on('data', data => stdout += data);
     sp.stderr.on('data', data => stderr += data);

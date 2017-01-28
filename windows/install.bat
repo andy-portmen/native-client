@@ -27,7 +27,7 @@ echo .. Writting to Chrome Registry
 echo .. Key: HKCU\Software\Google\Chrome\NativeMessagingHosts\com.add0n.node
 REG ADD "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%ProgramFiles%\com.add0n.node\manifest-chrome.json" /f
 
-echo  .. Writting to Firefox Registry
+echo .. Writting to Firefox Registry
 echo .. Key: HKEY_LOCAL_MACHINE\SOFTWARE\Mozilla\NativeMessagingHosts\com.add0n.node
 for %%f in ("%PROGRAMFILES%") do SET SHORT_PATH=%%~sf
 REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Mozilla\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%SHORT_PATH%\com.add0n.node\manifest-firefox.json" /f
