@@ -9,6 +9,7 @@ exports.ids = {
     'jjlkfjglmelpbkgfeebcdipalggpapag', // Open in Edge (Opera)
     'amojccmdnkdlcjcplmkijeenigbhfbpd', // Open in Opera (Chrome)
     'eoenobhieedpimobhembbgdcdhdcdcig', // Open in Safari (Chrome)
+    'bdlaolidgmapdilglbocpmbfipdpfjef', // Open in Safari (Opera)
     'noedpljikmfalclpadmnjbabbignpfge', // Open in IE (Opera)
     'ocnfecjfebnllnapjjoncgjnnkfmobjc', // Media Converter (Chrome)
     'fabccabfpmdadbhljpcmcbmepepfllnb', // Media Converter (Opera)
