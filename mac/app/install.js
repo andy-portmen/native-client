@@ -77,6 +77,10 @@ function application (callback) {
   console.log(' -> Creating a directory at', dir);
   exists(dir, (e) => {
     if (e) {
+      console.log('\x1b[31m', `-> You dont have permission to use "${share}" directory.` ,'\x1b[0m');
+      console.log('\x1b[31m', '-> Use custom directory instead. Example:' ,'\x1b[0m');
+      console.log('\x1b[31m', '-> ./install.sh --custom-dir=~/' ,'\x1b[0m');
+
       throw e;
     }
 
