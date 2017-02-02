@@ -1,5 +1,19 @@
 language: node_js
 node_js:
-  - "6"
+- '6'
 script:
-  - ./prepare.sh
+- ./prepare.sh
+deploy:
+  provider: releases
+  prerelease: true
+  api_key:
+    secure: oLi7zPKbK4QHNkymzrhp3n0UwXnA0e4mMw5xIMNTPRHIf5ezH767UjBI7cKyTxjT3ATdTgiptu+51pRHnTe8hxDli6/b661YpUtz8Uvatli+tv6yrpw2dOIJ4dBXESwD0FQ+Jh7A4kZOxJEA9OBLDAn/DNxcnpgmSOqkN7PHbrH63e3b9eRgFmUDEC8SAriLdjLpAXmpR4MINdvev4iMBu3WU39RMKuL7ltVqnB2xKiEcw2YCR7XSdImXSMubphzLrcx1BjigCBLQiqsLPleEEuXuTwqDxKzZwRB3Ic7z2YV669VVmEHWWfSs7WVES0kKTYYdvH6tWTFYe5NxrvCkyYBQvEtEc3OECPWttftwFyCSKZyaOSDArufberLtEkMtQl8xTjepjx98wBMG5dQmTjm3wdad9SqIPiRXLavputhiG/l5OE3eS0F5c0wG6m2kCjK5uFlflvlDqC83UdvZrIWi5PDDTzjxBUqBApFKF/mSAloqvR1SUY/GVJDw0h6pxG/OCGA5tr/kkoJIAKgOi52WWjtenu+3ezLo51YJrTF/Emb6PkgGtMbhiV3BULZFC48K+0OSoR/YqGm2faE3hoRdNkfPWVj+fn/LdvdHCEd8+qjoSXazsPrSq2l2sOzPEJ+Ur2Hwdy/EwtuNJbnJCwHTMuNyDOXxe8gmD6pYwk=
+  file:
+    - windows.zip
+    - linux.zip
+    - mac.zip
+  on:
+    tags: true
+  overwrite: true
+  skip_cleanup: true
+
