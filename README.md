@@ -1,8 +1,11 @@
 # native-client
 
-This [NodeJS](https://nodejs.org/) based small client helps the following extensions to communicate with your operation system
+Native Client [![Build Status](https://travis-ci.org/andy-portmen/native-client.svg?branch=master)](https://travis-ci.org/andy-portmen/native-client)
+
+This [NodeJS](https://nodejs.org/) based small client helps the following extensions to communicate with your operation system. To see the latest log visit [travis-ci.org](https://travis-ci.org/andy-portmen/native-client).
 
 1. Open in Firefox [open Firefox browser with provided URL]
+1. Open in Google Chrome [open Google Chrome browser with provided URL]
 2. Open in IE [open Internet Explorer browser with provided URL]
 3. Open in Chrome [open Chrome browser with provided URL]
 4. Open in Edge [open Microsoft Edge browser with provided URL]
