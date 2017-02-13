@@ -3,7 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 
-var share = process.argv.filter(a => a.startsWith('--custom-dir=')).map(a => a.split('=')[1])[0] || '/usr/share';
+var share = process.argv.filter(a => a.startsWith('--custom-dir=')).map(a => a.split('=')[1])[0] || process.env.HOME;
 if (share[0] === '~') {
   share = path.join(process.env.HOME, share.slice(1));
 }
@@ -102,8 +102,25 @@ function application (callback) {
 }
 function chrome (callback) {
   if (ids.chrome.length) {
-    manifest('/etc/opt/chrome/native-messaging-hosts', 'chrome', callback);
+    let loc = path.join(
+      process.env.HOME,
+      '.config/google-chrome/NativeMessagingHosts'
+    );
+    manifest(loc, 'chrome', callback);
     console.error(' -> Chrome Browser is supported');
+  }
+  else {
+    callback();
+  }
+}
+function chromium (callback) {
+  if (ids.chrome.length) {
+    let loc = path.join(
+      process.env.HOME,
+      '.config/chromium/NativeMessagingHosts'
+    );
+    manifest(loc, 'chrome', callback);
+    console.error(' -> Chromium Browser is supported');
   }
   else {
     callback();
@@ -111,16 +128,20 @@ function chrome (callback) {
 }
 function firefox (callback) {
   if (ids.firefox.length) {
-    manifest('/usr/lib/mozilla/native-messaging-hosts', 'firefox', callback);
+    let loc = path.join(
+      process.env.HOME,
+      '.mozilla/native-messaging-hosts'
+    );
+    manifest(loc, 'firefox', callback);
     console.error(' -> Firefox Browser is supported');
   }
   else {
     callback();
   }
 }
-chrome(() => firefox(() => {
+chrome(() => chromium(() => firefox(() => {
   application(() => {
     console.error(' => Native Host is installed in', dir);
     console.error('\n\n>>> Application is ready to use <<<\n\n');
   });
-}));
+})));
