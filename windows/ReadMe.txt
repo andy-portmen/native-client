@@ -7,3 +7,6 @@ To uninstall the native application
   2. Wait for the script to display the successful message.
 
 Note: The script needs administrator permission to copy files successfully.
+
+Installation Guide:
+https://www.youtube.com/watch?v=18jAqTXBiZA

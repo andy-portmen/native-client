@@ -25,6 +25,5 @@ exports.ids = {
     '{0ff128a1-c286-4e73-bffa-9ae879b244d5}', // Media Converter
     '{65b77238-bb05-470a-a445-ec0efe1d66c4}', // External Application Button
     '{086f665e-6a55-4107-9147-f9a14e72b137}', // Open in Chrome
-    '73abcedca60bc2c834a15eb8ff956ce8593cec9f@temporary-addon', // TEST
   ]
 };
