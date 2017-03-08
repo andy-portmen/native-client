@@ -18,6 +18,7 @@ exports.ids = {
     'bifmfjgpgndemajpeeoiopbeilbaifdo', // External Application Button (Chrome)
     'enemdfoackoekaedijjmjlckkleokhih', // External Application Button (Opera)
     'ihpiinojhnfhpdmmacgmpoonphhimkaj', // Open in VLC (Chrome)
+    'jfpmkcifglhenaihlnefaccjbmcmbigf', // Open in VLC (Opera)
     'gmdcejkkcimnbfmicdpohgicekomipde', // Open in Chrome (Opera)
   ],
   firefox: [
@@ -25,6 +26,6 @@ exports.ids = {
     '{0ff128a1-c286-4e73-bffa-9ae879b244d5}', // Media Converter
     '{65b77238-bb05-470a-a445-ec0efe1d66c4}', // External Application Button
     '{086f665e-6a55-4107-9147-f9a14e72b137}', // Open in Chrome
-    'd2e4b09019f93cfdde2311052c76f5639fd0dcf8@temporary-addon', // Open in Chrome
+    '{6b954d17-d17c-4a19-8fe6-ee8052a562d6}', // Open in VLC
   ]
 };
