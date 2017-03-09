@@ -20,6 +20,8 @@ exports.ids = {
     'ihpiinojhnfhpdmmacgmpoonphhimkaj', // Open in VLC (Chrome)
     'jfpmkcifglhenaihlnefaccjbmcmbigf', // Open in VLC (Opera)
     'gmdcejkkcimnbfmicdpohgicekomipde', // Open in Chrome (Opera)
+    'gkmonffckeeffppchajngpdakfppalfo', // Auto Shutdown (Chrome)
+    'iajkcajifgglcaojccgiohphgjmoleia', // Auto Shutdown (Opera)
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
@@ -27,5 +29,6 @@ exports.ids = {
     '{65b77238-bb05-470a-a445-ec0efe1d66c4}', // External Application Button
     '{086f665e-6a55-4107-9147-f9a14e72b137}', // Open in Chrome
     '{6b954d17-d17c-4a19-8fe6-ee8052a562d6}', // Open in VLC
+    '{9a71ec90-d0b6-44af-833f-efe418ff8454}', // Auto Shutdown
   ]
 };
