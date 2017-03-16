@@ -20,7 +20,7 @@ var https = lazyRequire('./follow-redirects').https;
 var server, files = [];
 
 var config = {
-  version: '0.3.0'
+  version: '0.3.1'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -104,6 +104,9 @@ function observe (msg, push, done) {
       }
       if (req.method === 'PUT') {
         let filename = req.headers['file-path'];
+        if (filename.startsWith('enc:')) {
+          filename = decodeURIComponent(filename.substr(4));
+        }
         files.push(filename);
         let file = fs.createWriteStream(filename);
         req.pipe(file);
@@ -114,7 +117,6 @@ function observe (msg, push, done) {
           });
         });
         file.on('error', (e) => {
-          console.error(e);
           res.statusCode = 400;
           res.end('HTTP/1.1 400 Bad Request');
         });
