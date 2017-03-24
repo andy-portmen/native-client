@@ -117,6 +117,7 @@ function observe (msg, push, done) {
           });
         });
         file.on('error', (e) => {
+          console.error(e);
           res.statusCode = 400;
           res.end('HTTP/1.1 400 Bad Request');
         });
