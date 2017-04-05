@@ -24,6 +24,8 @@ exports.ids = {
     'iajkcajifgglcaojccgiohphgjmoleia', // Auto Shutdown (Opera)
     'klglmiipkjlhpeeopnnlkhdomjhbkpjh', // Open in Vivaldi (Chrome)
     'ldoihpohemnbokndocafmiblepbjeacb', // Open in Vivaldi (Opera)
+    'dijcjcnibopfdgbmpkgnjfdihfdeghcc', // Open in Tor Browser (Chrome)
+    'emlgnifoahkaeocfmafkpnfbijoioefh', // Open in Tor Browser (Opera)
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
@@ -33,5 +35,6 @@ exports.ids = {
     '{6b954d17-d17c-4a19-8fe6-ee8052a562d6}', // Open in VLC
     '{9a71ec90-d0b6-44af-833f-efe418ff8454}', // Auto Shutdown
     '{0bcb72f8-7da8-4071-905c-2de13f5aad3a}', // Open in Vivaldi
+    '{9d3b260b-886d-4263-b9d6-81d756ee4929}', // Open in Tor Browser
   ]
 };
