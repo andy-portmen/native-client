@@ -12,15 +12,16 @@ function lazyRequire (lib, name) {
 
 var spawn = require('child_process').spawn;
 var fs = lazyRequire('fs');
+var net = lazyRequire('net');
 var os = lazyRequire('os');
 var path = lazyRequire('path');
 var http = lazyRequire('./follow-redirects').http;
 var https = lazyRequire('./follow-redirects').https;
 
-var server, files = [];
+var server, files = [], sprocess = [];
 
 var config = {
-  version: '0.3.3'
+  version: '0.3.4'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -31,6 +32,7 @@ process.stdin.on('end', () => {
     }
     catch (e) {}
   });
+  sprocess.forEach(ps => ps.kill());
   try {
     server.close();
     server.unref();
@@ -65,7 +67,13 @@ function observe (msg, push, done) {
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
-    let sp = spawn(msg.command, msg.arguments || [], Object.assign({env: process.env}, msg.properties));
+    let p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    let sp = spawn(p, msg.arguments || [], Object.assign({env: process.env}, msg.properties));
+
+    if (msg.kill) {
+      sprocess.push(sp);
+    }
+
     sp.stdout.on('data', stdout => push({stdout}));
     sp.stderr.on('data', stderr => push({stderr}));
     sp.on('close', (code) => {
@@ -142,10 +150,14 @@ function observe (msg, push, done) {
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
-    let sp = spawn(msg.command, msg.arguments || [], Object.assign({
+    let p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    let sp = spawn(p, msg.arguments || [], Object.assign({
       env: process.env,
       detached: true
     }, msg.properties));
+    if (msg.kill) {
+      sprocess.push(sp);
+    }
     let stderr = '', stdout = '';
     sp.stdout.on('data', data => stdout += data);
     sp.stderr.on('data', data => stderr += data);
@@ -262,6 +274,23 @@ function observe (msg, push, done) {
       });
       done();
     }
+  }
+  else if (msg.cmd === 'net') {
+    let stdout = '';
+    let connection = net.connect({
+      port: msg.port,
+      host: msg.host,
+      persistent: false
+    });
+    connection.on('end', () => {
+      push(stdout);
+      done();
+    });
+    connection.on('data', (data) => {
+      data = data.toString();
+      stdout += data;
+    });
+    msg.commands.forEach(cmd => connection.write(cmd));
   }
   else {
     push({

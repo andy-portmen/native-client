@@ -26,6 +26,8 @@ exports.ids = {
     'ldoihpohemnbokndocafmiblepbjeacb', // Open in Vivaldi (Opera)
     'dijcjcnibopfdgbmpkgnjfdihfdeghcc', // Open in Tor Browser (Chrome)
     'emlgnifoahkaeocfmafkpnfbijoioefh', // Open in Tor Browser (Opera)
+    'kjoabfljeghcinlpjhdbdfbcflapkccm', // Tor Control (Chrome)
+    'knfbgpkbkfebddfbklfpgmdjgolnkkfl', // Tor Control (Opera)
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
