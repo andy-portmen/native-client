@@ -21,7 +21,7 @@ var https = lazyRequire('./follow-redirects').https;
 var server, files = [], sprocess = [];
 
 var config = {
-  version: '0.3.6'
+  version: '0.3.7'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -291,6 +291,70 @@ function observe (msg, push, done) {
       stdout += data;
     });
     msg.commands.forEach(cmd => connection.write(cmd));
+  }
+  else if (msg.cmd === 'copy') {
+    let cbCalled = false;
+    let end = (error) => {
+      if (cbCalled === false) {
+        push(error ? {
+          error,
+          code: 1010
+        } : {
+          code: 0,
+          target: msg.target
+        });
+        done();
+        cbCalled = true;
+      }
+    };
+    let rd = fs.createReadStream(msg.source);
+    rd.on('error', e => end(e));
+    let wr = fs.createWriteStream(msg.target);
+    wr.on('error', e => end(e));
+    wr.on('finish', () => {
+      if (msg.chmod) {
+        fs.chmodSync(msg.target, msg.chmod);
+      }
+      if (msg.delete) {
+        fs.unlink(msg.source, (error) => {
+          if (error) {
+            return end(error);
+          }
+          end();
+        });
+      }
+      else {
+        end();
+      }
+    });
+    rd.pipe(wr);
+  }
+  else if (msg.cmd === 'remove') {
+    let unlink = (file) => {
+      return new Promise((resolve, reject) => {
+        fs.unlink(file, (error) => {
+          if (error) {
+            return reject(error);
+          }
+          resolve();
+        });
+      });
+    };
+    Promise.all(msg.files.map(file => unlink(file))).then(
+      () => {
+        push({
+          code: 0
+        });
+        done();
+      },
+      (error) => {
+        push({
+          error,
+          code: 1011
+        });
+        done();
+      }
+    );
   }
   else {
     push({
