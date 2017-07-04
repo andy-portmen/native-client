@@ -171,22 +171,64 @@ function observe (msg, push, done) {
     });
   }
   else if (msg.cmd === 'dir') {
-    fs.readdir(msg.path, (error, files) => {
-      if (error) {
-        push({
-          error: `Cannot open directory; number=${error.errno}, code=${error.code}`,
-          code: 1002
-        });
-      }
-      else {
-        push({
-          files,
-          folders: files.filter(file => fs.statSync(path.join(msg.path, file)).isDirectory()),
+    let files = [];
+    let folders = [];
+    const walk = (dir, depth = 0) => {
+      let list = fs.readdirSync(dir);
+      list.forEach(file => {
+        file = path.join(dir, file);
+        const stat = fs.statSync(file);
+        if (stat && stat.isDirectory()) {
+          folders.push(file);
+          if (depth < msg.depth) {
+            return walk(file, depth + 1);
+          }
+        }
+        else {
+          files.push(file);
+        }
+      });
+      return;
+    };
+    if (msg.recursive) {
+      try {
+        walk(msg.path);
+        let rtn = {
+          code: 0,
+          folders,
           separator: path.sep
+        };
+        if (msg.files) {
+          rtn.files = files;
+        }
+        push(rtn);
+      }
+      catch (e) {
+        push({
+          error: e.message,
+          code: 1003
         });
       }
       done();
-    });
+    }
+    else {
+      fs.readdir(msg.path, (error, files) => {
+        if (error) {
+          push({
+            error: `Cannot open directory; number=${error.errno}, code=${error.code}`,
+            code: 1002
+          });
+        }
+        else {
+          push({
+            files,
+            folders: files.filter(file => fs.statSync(path.join(msg.path, file)).isDirectory()),
+            separator: path.sep
+          });
+        }
+        done();
+      });
+    }
   }
   else if (msg.cmd === 'env') {
     push({
@@ -355,6 +397,38 @@ function observe (msg, push, done) {
         done();
       }
     );
+  }
+  else if (msg.cmd === 'move') {
+    const one = () => {
+      const obj = msg.pairs.shift();
+      if (obj) {
+        let destination = obj.destination;
+        if (msg.guess) {
+          destination = path.join(destination, path.parse(obj.file).base);
+        }
+        const is = fs.createReadStream(obj.file);
+        const os = fs.createWriteStream(destination);
+        is.on('end',() => {
+          fs.unlinkSync(obj.file);
+          one();
+        });
+        is.on('error', error => {
+          push({
+            error,
+            code: 1020
+          });
+          done();
+        });
+        is.pipe(os);
+      }
+      else {
+        push({
+          code: 0
+        });
+        done();
+      }
+    };
+    one();
   }
   else {
     push({
