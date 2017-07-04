@@ -67,7 +67,7 @@ function observe (msg, push, done) {
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
-    let p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    let p = Array.isArray(msg.command) ? path.join.apply(path, msg.command) : msg.command;
     let sp = spawn(p, msg.arguments || [], Object.assign({env: process.env}, msg.properties));
 
     if (msg.kill) {
@@ -150,7 +150,7 @@ function observe (msg, push, done) {
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
-    let p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    let p = Array.isArray(msg.command) ? path.join.apply(path, msg.command) : msg.command;
     let sp = spawn(p, msg.arguments || [], Object.assign({
       env: process.env,
       detached: true
