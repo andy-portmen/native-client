@@ -54,7 +54,7 @@ function application (callback) {
     fs.createReadStream('messaging.js').pipe(fs.createWriteStream(path.join(dir, 'messaging.js')));
     fs.createReadStream('follow-redirects.js').pipe(fs.createWriteStream(path.join(dir, 'follow-redirects.js')));
     try {
-      fs.createReadStream('..\\node.exe').pipe(fs.createWriteStream(path.join(dir, 'node.exe')));
+      fs.createReadStream(process.argv[0]).pipe(fs.createWriteStream(path.join(dir, 'node.exe')));
     } catch (e) {}
     callback();
   });

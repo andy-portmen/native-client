@@ -93,7 +93,7 @@ function application (callback) {
       }
       fs.chmodSync(path.join(dir, 'run.sh'), '0755');
       if (!isNode) {
-        fs.createReadStream('../node').pipe(fs.createWriteStream(path.join(dir, 'node')));
+        fs.createReadStream(process.argv[0]).pipe(fs.createWriteStream(path.join(dir, 'node')));
         fs.chmodSync(path.join(dir, 'node'), '0755');
       }
       fs.createReadStream('host.js').pipe(fs.createWriteStream(path.join(dir, 'host.js')));
