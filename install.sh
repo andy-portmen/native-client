@@ -8,13 +8,13 @@ if [ $? -eq 0 ]; then
 fi
 if [ $? -eq 0 ]; then
   echo "Installer is using your system NodeJS."
-  node install.js `which node` $1
+  node install.js `which node`
 else
   MACHINE_TYPE=`uname -m`
   echo "Installer is using the attached NodeJS"
   if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-    ../node/x64/node install.js --add_node $1
+    ../node/x64/node install.js --add_node
   else
-    ../node/x86/node install.js --add_node $1
+    ../node/x86/node install.js --add_nodes
   fi
 fi
