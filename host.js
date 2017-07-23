@@ -1,10 +1,11 @@
+/* globals global, require, process, Buffer */
 'use strict';
 
-function lazyRequire (lib, name) {
+function lazyRequire(lib, name) {
   if (!name) {
     name = lib;
   }
-  global.__defineGetter__(name, function () {
+  global.__defineGetter__(name, function() {
     return require(lib);
   });
   return global[name];
@@ -18,10 +19,12 @@ var path = lazyRequire('path');
 var http = lazyRequire('./follow-redirects').http;
 var https = lazyRequire('./follow-redirects').https;
 
-var server, files = [], sprocess = [];
+var server;
+var files = [];
+var sprocess = [];
 
 var config = {
-  version: '0.3.9'
+  version: '0.4.0'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -43,7 +46,7 @@ process.stdin.on('end', () => {
 
 /////////////////process.on('uncaughtException', e => console.error(e));
 
-function observe (msg, push, done) {
+function observe(msg, push, done) {
   if (msg.cmd === 'version') {
     push({
       version: config.version,
@@ -67,8 +70,8 @@ function observe (msg, push, done) {
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
-    let p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
-    let sp = spawn(p, msg.arguments || [], Object.assign({env: process.env}, msg.properties));
+    const p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    const sp = spawn(p, msg.arguments || [], Object.assign({env: process.env}, msg.properties));
 
     if (msg.kill) {
       sprocess.push(sp);
@@ -76,7 +79,7 @@ function observe (msg, push, done) {
 
     sp.stdout.on('data', stdout => push({stdout}));
     sp.stderr.on('data', stderr => push({stderr}));
-    sp.on('close', (code) => {
+    sp.on('close', code => {
       push({
         cmd: msg.cmd,
         code
@@ -105,7 +108,7 @@ function observe (msg, push, done) {
     done();
   }
   else if (msg.cmd === 'ifup') {
-    server = http.createServer(function (req, res) {
+    server = http.createServer(function(req, res) {
       if (req.headers['api-key'] !== msg.key) {
         res.statusCode = 400;
         return res.end('HTTP/1.1 400 Bad API Key. Restarting application may fix this.');
@@ -116,7 +119,7 @@ function observe (msg, push, done) {
           filename = decodeURIComponent(filename.substr(4));
         }
         files.push(filename);
-        let file = fs.createWriteStream(filename);
+        const file = fs.createWriteStream(filename);
         req.pipe(file);
         file.on('finish', () => {
           file.close(() => {
@@ -124,14 +127,14 @@ function observe (msg, push, done) {
             res.end('File is stored locally');
           });
         });
-        file.on('error', (e) => {
+        file.on('error', e => {
           console.error(e);
           res.statusCode = 400;
           res.end('HTTP/1.1 400 Bad Request');
         });
       }
     });
-    server.on('error', (e) => {
+    server.on('error', e => {
       push({
         error: e.message,
         code: 1006
@@ -150,18 +153,19 @@ function observe (msg, push, done) {
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
-    let p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
-    let sp = spawn(p, msg.arguments || [], Object.assign({
+    const p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    const sp = spawn(p, msg.arguments || [], Object.assign({
       env: process.env,
       detached: true
     }, msg.properties));
     if (msg.kill) {
       sprocess.push(sp);
     }
-    let stderr = '', stdout = '';
+    let stderr = '';
+    let stdout = '';
     sp.stdout.on('data', data => stdout += data);
     sp.stderr.on('data', data => stderr += data);
-    sp.on('close', (code) => {
+    sp.on('close', code => {
       push({
         code,
         stderr,
@@ -171,10 +175,10 @@ function observe (msg, push, done) {
     });
   }
   else if (msg.cmd === 'dir') {
-    let files = [];
-    let folders = [];
+    const files = [];
+    const folders = [];
     const walk = (dir, depth = 0) => {
-      let list = fs.readdirSync(dir);
+      const list = fs.readdirSync(dir);
       list.forEach(file => {
         file = path.join(dir, file);
         const stat = fs.statSync(file);
@@ -193,7 +197,7 @@ function observe (msg, push, done) {
     if (msg.recursive) {
       try {
         walk(msg.path);
-        let rtn = {
+        const rtn = {
           code: 0,
           folders,
           separator: path.sep
@@ -237,20 +241,20 @@ function observe (msg, push, done) {
     done();
   }
   else if (msg.cmd === 'download') {
-    let file = fs.createWriteStream(msg.filepath);
-    let request = https.get({
+    const file = fs.createWriteStream(msg.filepath);
+    const request = https.get({
       hostname: msg.hostname,
       port: msg.port,
       path: msg.path
-    }, (response) => {
-      let size = parseInt(response.headers['content-length'], 10);
+    }, response => {
+      const size = parseInt(response.headers['content-length']);
       response.pipe(file);
       file.on('finish', () => {
         if (msg.chmod) {
           fs.chmodSync(msg.filepath, msg.chmod);
         }
         file.close(() => {
-          let s = fs.statSync(msg.filepath).size;
+          const s = fs.statSync(msg.filepath).size;
           push({
             size,
             path: msg.filepath,
@@ -262,7 +266,7 @@ function observe (msg, push, done) {
         });
       });
     });
-    request.on('error', (err) => {
+    request.on('error', err => {
       fs.unlink(msg.filepath);
       push({
         error: err.message,
@@ -270,17 +274,17 @@ function observe (msg, push, done) {
       });
       done();
     });
-    request.on('socket', function (socket) {
+    request.on('socket', function(socket) {
       socket.setTimeout(msg.timeout || 60000);
       socket.on('timeout', () => request.abort());
     });
   }
   else if (msg.cmd === 'save-data') {
-    let matches = msg.data.match(/^data:.+\/(.+);base64,(.*)$/);
+    const matches = msg.data.match(/^data:.+\/(.+);base64,(.*)$/);
     if (matches && matches.length) {
-      let ext = matches[1];
-      let data = matches[2];
-      let buffer = new Buffer(data, 'base64');
+      const ext = matches[1];
+      const data = matches[2];
+      const buffer = new Buffer(data, 'base64');
 
       fs.mkdtemp(os.tmpdir(), (err, folder) => {
         if (err) {
@@ -290,8 +294,8 @@ function observe (msg, push, done) {
           });
           done();
         }
-        let file =  path.join(folder, 'image.' + ext);
-        fs.writeFile(file, buffer, (err) => {
+        const file = path.join(folder, 'image.' + ext);
+        fs.writeFile(file, buffer, err => {
           if (err) {
             push({
               error: err.message,
@@ -319,7 +323,7 @@ function observe (msg, push, done) {
   }
   else if (msg.cmd === 'net') {
     let stdout = '';
-    let connection = net.connect({
+    const connection = net.connect({
       port: msg.port,
       host: msg.host,
       persistent: false
@@ -328,7 +332,7 @@ function observe (msg, push, done) {
       push(stdout);
       done();
     });
-    connection.on('data', (data) => {
+    connection.on('data', data => {
       data = data.toString();
       stdout += data;
     });
@@ -336,7 +340,7 @@ function observe (msg, push, done) {
   }
   else if (msg.cmd === 'copy') {
     let cbCalled = false;
-    let end = (error) => {
+    const end = error => {
       if (cbCalled === false) {
         push(error ? {
           error,
@@ -349,16 +353,16 @@ function observe (msg, push, done) {
         cbCalled = true;
       }
     };
-    let rd = fs.createReadStream(msg.source);
+    const rd = fs.createReadStream(msg.source);
     rd.on('error', e => end(e));
-    let wr = fs.createWriteStream(msg.target);
+    const wr = fs.createWriteStream(msg.target);
     wr.on('error', e => end(e));
     wr.on('finish', () => {
       if (msg.chmod) {
         fs.chmodSync(msg.target, msg.chmod);
       }
       if (msg.delete) {
-        fs.unlink(msg.source, (error) => {
+        fs.unlink(msg.source, error => {
           if (error) {
             return end(error);
           }
@@ -372,16 +376,14 @@ function observe (msg, push, done) {
     rd.pipe(wr);
   }
   else if (msg.cmd === 'remove') {
-    let unlink = (file) => {
-      return new Promise((resolve, reject) => {
-        fs.unlink(file, (error) => {
-          if (error) {
-            return reject(error);
-          }
-          resolve();
-        });
+    const unlink = file => new Promise((resolve, reject) => {
+      fs.unlink(file, error => {
+        if (error) {
+          return reject(error);
+        }
+        resolve();
       });
-    };
+    });
     Promise.all(msg.files.map(file => unlink(file))).then(
       () => {
         push({
@@ -389,7 +391,7 @@ function observe (msg, push, done) {
         });
         done();
       },
-      (error) => {
+      error => {
         push({
           error,
           code: 1011
@@ -408,7 +410,7 @@ function observe (msg, push, done) {
         }
         const is = fs.createReadStream(obj.file);
         const os = fs.createWriteStream(destination);
-        is.on('end',() => {
+        is.on('end', () => {
           fs.unlinkSync(obj.file);
           one();
         });
