@@ -8,4 +8,4 @@ cd ../windows
 zip ../windows.zip -9 -r * -x "*.DS_Store"
 
 cd ..
-zip "Source code (no node).zip" -9 -r * -x "*.DS_Store" -x "*/node/*/node" "windows/node/*/node.exe"
+zip "src_no_node.zip" -9 --symlinks -r * -x "*.DS_Store" -x "*/node/*/node" "windows/node/*/node.exe" "*.zip"

@@ -12,7 +12,7 @@ deploy:
     - windows.zip
     - linux.zip
     - mac.zip
-    - Source code (no node).zip
+    - src_no_node.zip
   on:
     tags: true
   overwrite: true
