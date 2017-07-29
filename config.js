@@ -1,3 +1,4 @@
+/* globals exports */
 'use strict';
 
 exports.ids = {
