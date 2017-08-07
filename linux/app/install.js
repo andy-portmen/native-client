@@ -126,6 +126,19 @@ function chromium(callback) {
     callback();
   }
 }
+function vivaldi(callback) {
+  if (ids.chrome.length) {
+    const loc = path.join(
+      process.env.HOME,
+      '.config/vivaldi/NativeMessagingHosts'
+    );
+    manifest(loc, 'chrome', callback);
+    console.error(' -> Vivaldi Browser is supported');
+  }
+  else {
+    callback();
+  }
+}
 function firefox(callback) {
   if (ids.firefox.length) {
     const loc = path.join(
@@ -139,9 +152,9 @@ function firefox(callback) {
     callback();
   }
 }
-chrome(() => chromium(() => firefox(() => {
+chrome(() => chromium(() => vivaldi(() => firefox(() => {
   application(() => {
     console.error(' => Native Host is installed in', dir);
     console.error('\n\n>>> Application is ready to use <<<\n\n');
   });
-})));
+}))));
