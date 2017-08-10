@@ -3,6 +3,7 @@
 cd ./app
 
 which node 2>/dev/null
+echo NodeJS status = $?
 if [ $? -eq 0 ]; then
   node -e "process.exit(Number(process.version.substr(1).split('.')[0]) > 5 ? 0 : 1)"
 fi
