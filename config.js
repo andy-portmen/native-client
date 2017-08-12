@@ -43,5 +43,6 @@ exports.ids = {
     '{0bcb72f8-7da8-4071-905c-2de13f5aad3a}', // Open in Vivaldi
     '{9d3b260b-886d-4263-b9d6-81d756ee4929}', // Open in Tor Browser
     '{f73df109-8fb4-453e-8373-f59e61ca4da3}', // YVAD by @InBasic
+    '{d22a1484-dcef-44e9-ab52-80f0f4a331a3}', // Tor Control
   ]
 };
