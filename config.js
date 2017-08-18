@@ -30,6 +30,8 @@ exports.ids = {
     'kjoabfljeghcinlpjhdbdfbcflapkccm', // Tor Control (Chrome)
     'knfbgpkbkfebddfbklfpgmdjgolnkkfl', // Tor Control (Opera)
     'khgbdhkpcapllhgfekjegcinegfhjbmi', // YVAD by @InBasic (Opera)
+    'cehiomcamjpnfmemkmpjadaclohoibgo', // Open in PDF viewer (Chrome)
+    'honagjpkinogkppkapphkpdffnegagge', // Open in PDF viewer (Opera)
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
@@ -44,5 +46,6 @@ exports.ids = {
     '{9d3b260b-886d-4263-b9d6-81d756ee4929}', // Open in Tor Browser
     '{f73df109-8fb4-453e-8373-f59e61ca4da3}', // YVAD by @InBasic
     '{d22a1484-dcef-44e9-ab52-80f0f4a331a3}', // Tor Control
+    '{0d3afca0-aedf-491f-b0f9-9ffc22113ea8}', // Open in PDF viewer
   ]
 };

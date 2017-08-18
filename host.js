@@ -432,6 +432,39 @@ function observe(msg, push, done) {
     };
     one();
   }
+  // this is from openstyles/native-client
+  else if ('script' in msg) {
+    let close;
+    const exception = e => {
+      push({
+        code: -1,
+        type: 'exception',
+        error: e.stack
+      });
+      close();
+    };
+    close = () => {
+      process.removeListener('uncaughtException', exception);
+      done();
+      close = () => {};
+    };
+    process.addListener('uncaughtException', exception);
+
+    const vm = require('vm');
+    const sandbox = {
+      version: config.version,
+      env: process.env,
+      push,
+      close,
+      setTimeout,
+      args: msg.args,
+      // only allow internal modules that extension already requested permission for
+      require: name => (msg.permissions || []).indexOf(name) === -1 ? null : require(name)
+    };
+    const script = new vm.Script(msg.script);
+    const context = new vm.createContext(sandbox);
+    script.runInContext(context);
+  }
   else {
     push({
       error: 'cmd is unknown',
