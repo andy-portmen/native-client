@@ -24,7 +24,7 @@ var files = [];
 var sprocess = [];
 
 var config = {
-  version: '0.5.0'
+  version: '0.5.1'
 };
 // closing node when parent process is killed
 process.stdin.resume();

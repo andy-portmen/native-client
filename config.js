@@ -32,11 +32,13 @@ exports.ids = {
     'khgbdhkpcapllhgfekjegcinegfhjbmi', // YVAD by @InBasic (Opera)
     'cehiomcamjpnfmemkmpjadaclohoibgo', // Open in PDF viewer (Chrome)
     'honagjpkinogkppkapphkpdffnegagge', // Open in PDF viewer (Opera)
+    'johamdbemnggfpjfcjmigpepgmicaoej', // TESSST
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
     '{94782f74-1a58-4332-a803-00006221a9d0}', // Open in Edge
-    '{3128fe8f-f039-42ea-8b12-126f78387074}', // Open in Edge
+    '{3128fe8f-f039-42ea-8b12-126f78387074}', // Open in Safari
+    '{8db82a75-48fd-452a-81cf-bd40b2e60dac}', // Open in Opera
     '{0ff128a1-c286-4e73-bffa-9ae879b244d5}', // Media Converter
     '{65b77238-bb05-470a-a445-ec0efe1d66c4}', // External Application Button
     '{086f665e-6a55-4107-9147-f9a14e72b137}', // Open in Chrome
