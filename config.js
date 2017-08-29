@@ -5,13 +5,15 @@ exports.ids = {
   chrome: [
     'lmeddoobegbaiopohmpmmobpnpjifpii', // Open in Firefox (Chrome)
     'hhalgjmpmjelidhhjldondajffjbcmcg', // Open in Firefox (Opera)
-    'agaecbnjediafcdopcfidcdiponjlmnk', // Open in IE (Chrome)
     'poibpkhpegdblnblbkcppknekhkhmmlp', // Open in Edge (Chrome)
+    'mjoebkkejejidnkfdekpbooceogbapnf', // Open in Edge (Chrome) by @rynu.smith
     'jjlkfjglmelpbkgfeebcdipalggpapag', // Open in Edge (Opera)
     'amojccmdnkdlcjcplmkijeenigbhfbpd', // Open in Opera (Chrome)
     'eoenobhieedpimobhembbgdcdhdcdcig', // Open in Safari (Chrome)
     'bdlaolidgmapdilglbocpmbfipdpfjef', // Open in Safari (Opera)
     'noedpljikmfalclpadmnjbabbignpfge', // Open in IE (Opera)
+    'agaecbnjediafcdopcfidcdiponjlmnk', // Open in IE (Chrome)
+    'looohpideggedchhpphemdmppnmdkgfd', // Open in IE (Chrome) by @rynu.smith
     'ocnfecjfebnllnapjjoncgjnnkfmobjc', // Media Converter (Chrome)
     'fabccabfpmdadbhljpcmcbmepepfllnb', // Media Converter (Opera)
     'jgpghknlbaljigdhcjimjnkkjniiipmm', // Open in GIMP (Chrome)
