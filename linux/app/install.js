@@ -83,7 +83,7 @@ function application(callback) {
       throw e;
     }
     const isNode = process.argv.filter(a => a === '--add_node').length === 0;
-    const run = `#!/bin/bash\n${isNode ? process.argv[0] : './node'} host.js`;
+    const run = `#!/usr/bin/env bash\n${isNode ? process.argv[0] : './node'} host.js`;
     fs.writeFile(path.join(dir, 'run.sh'), run, e => {
       if (e) {
         throw e;
