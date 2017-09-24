@@ -38,6 +38,8 @@ exports.ids = {
     'dlobcokaeaiaihfebfhpdoongldphgkf', // Open in Yandex (Opera)
     'bffjckjhidlcnenenacdahhpbacpgapo', // Country Flags (Chrome)
     'ljealnphmlekclcdoeficainfegfjgkc', // Country Flags (Opera)
+    'djlddpgigallklconlgapabopblddaki', // Edit with Photoshop (Chrome)
+    'babedbfkpnfmnopiagfocoelpfmpldkc', // Edit with Photoshop (Chrome)
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
@@ -56,5 +58,6 @@ exports.ids = {
     '{d22a1484-dcef-44e9-ab52-80f0f4a331a3}', // Tor Control
     '{0d3afca0-aedf-491f-b0f9-9ffc22113ea8}', // Open in PDF viewer
     '{802a552e-13d1-4683-a40a-1e5325fba4bb}', // Country Flag
+    '{e127aaca-d162-4e4c-8de6-a5ee4de1a2ec}', // Edit with Photoshop
   ]
 };
