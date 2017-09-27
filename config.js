@@ -40,6 +40,7 @@ exports.ids = {
     'ljealnphmlekclcdoeficainfegfjgkc', // Country Flags (Opera)
     'djlddpgigallklconlgapabopblddaki', // Edit with Photoshop (Chrome)
     'babedbfkpnfmnopiagfocoelpfmpldkc', // Edit with Photoshop (Chrome)
+    'jjnoahbcdkgkepclefhfkjnpeiepdplh', // Edit with Photoshop (Chrome)
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE

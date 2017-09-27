@@ -7,6 +7,6 @@ rm -f ~/Library/Application\ Support/Chromium/NativeMessagingHosts/com.add0n.nod
 echo " -> Removing manifest file for Mozilla Firefox"
 rm -f ~/Library/Application\ Support/Mozilla/NativeMessagingHosts/com.add0n.node.json
 echo " -> Removing executables"
-rm -f -r ~/com.add0n.node
+rm -f -r ~/.config/com.add0n.node
 
 echo ">>> Native Client is removed <<<".

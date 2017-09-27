@@ -4,7 +4,8 @@
 var fs = require('fs');
 var path = require('path');
 
-var share = process.argv.filter(a => a.startsWith('--custom-dir=')).map(a => a.split('=')[1])[0] || process.env.HOME;
+var share = process.argv.filter(a => a.startsWith('--custom-dir='))
+  .map(a => a.split('=')[1])[0] || path.resolve(process.env.HOME, '.config');
 if (share[0] === '~') {
   share = path.join(process.env.HOME, share.slice(1));
 }
