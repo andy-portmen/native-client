@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd ./app
+cd "$(dirname "$0")/app"
 
 which node 2>/dev/null
 echo NodeJS status = $?
