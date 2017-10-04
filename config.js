@@ -14,8 +14,8 @@ exports.ids = {
     'noedpljikmfalclpadmnjbabbignpfge', // Open in IE (Opera)
     'agaecbnjediafcdopcfidcdiponjlmnk', // Open in IE (Chrome)
     'looohpideggedchhpphemdmppnmdkgfd', // Open in IE (Chrome) by @rynu.smith
-    'ocnfecjfebnllnapjjoncgjnnkfmobjc', // Media Converter (Chrome)
-    'fabccabfpmdadbhljpcmcbmepepfllnb', // Media Converter (Opera)
+    'ocnfecjfebnllnapjjoncgjnnkfmobjc', // Media Converter (Chrome) [By @InBasic]
+    'fabccabfpmdadbhljpcmcbmepepfllnb', // Media Converter (Opera) [By @InBasic]
     'jgpghknlbaljigdhcjimjnkkjniiipmm', // Open in GIMP (Chrome)
     'cmjahocdpafkodabbojjaebogoigcipj', // Open in GIMP (Opera)
     'bifmfjgpgndemajpeeoiopbeilbaifdo', // External Application Button (Chrome)
@@ -31,16 +31,16 @@ exports.ids = {
     'emlgnifoahkaeocfmafkpnfbijoioefh', // Open in Tor Browser (Opera)
     'kjoabfljeghcinlpjhdbdfbcflapkccm', // Tor Control (Chrome)
     'knfbgpkbkfebddfbklfpgmdjgolnkkfl', // Tor Control (Opera)
-    'khgbdhkpcapllhgfekjegcinegfhjbmi', // YVAD by @InBasic (Opera)
+    'khgbdhkpcapllhgfekjegcinegfhjbmi', // YVAD by (Opera) [By @InBasic]
     'cehiomcamjpnfmemkmpjadaclohoibgo', // Open in PDF viewer (Chrome)
     'honagjpkinogkppkapphkpdffnegagge', // Open in PDF viewer (Opera)
     'nfpgfobeckckemhmggkdfjkjaiikadnd', // Open in Yandex (Chrome)
     'dlobcokaeaiaihfebfhpdoongldphgkf', // Open in Yandex (Opera)
     'bffjckjhidlcnenenacdahhpbacpgapo', // Country Flags (Chrome)
     'ljealnphmlekclcdoeficainfegfjgkc', // Country Flags (Opera)
-    'djlddpgigallklconlgapabopblddaki', // Edit with Photoshop (Chrome)
-    'babedbfkpnfmnopiagfocoelpfmpldkc', // Edit with Photoshop (Chrome)
-    'jjnoahbcdkgkepclefhfkjnpeiepdplh', // Edit with Photoshop (Chrome)
+    'djlddpgigallklconlgapabopblddaki', // Edit with Photoshop (Chrome) [By @ray-lothian]
+    'babedbfkpnfmnopiagfocoelpfmpldkc', // Edit with Photoshop (Opera) [By @ray-lothian]
+    'kakiifnbkffafinaifemmingfmfjdklh', // Edit with Paint.Net (Opera) [By @ray-lothian]
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
@@ -55,10 +55,11 @@ exports.ids = {
     '{9a71ec90-d0b6-44af-833f-efe418ff8454}', // Auto Shutdown
     '{0bcb72f8-7da8-4071-905c-2de13f5aad3a}', // Open in Vivaldi
     '{9d3b260b-886d-4263-b9d6-81d756ee4929}', // Open in Tor Browser
-    '{f73df109-8fb4-453e-8373-f59e61ca4da3}', // YVAD by @InBasic
+    '{f73df109-8fb4-453e-8373-f59e61ca4da3}', // YVAD [By @InBasic]
     '{d22a1484-dcef-44e9-ab52-80f0f4a331a3}', // Tor Control
     '{0d3afca0-aedf-491f-b0f9-9ffc22113ea8}', // Open in PDF viewer
     '{802a552e-13d1-4683-a40a-1e5325fba4bb}', // Country Flag
-    '{e127aaca-d162-4e4c-8de6-a5ee4de1a2ec}', // Edit with Photoshop
+    '{e127aaca-d162-4e4c-8de6-a5ee4de1a2ec}', // Edit with Photoshop [By @ray-lothian]
+    '{3e8ae4b2-678d-4a63-8104-4d4d8d3b4f46}', // Edit with Paint.Net [By @ray-lothian]
   ]
 };
