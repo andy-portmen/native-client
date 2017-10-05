@@ -8,9 +8,9 @@ echo NodeJS status = $isNode
 
 if [ $isNode -eq 0 ]; then
   node -e "process.exit(Number(process.version.substr(1).split('.')[0]) > 5 ? 0 : 1)"
-  isValidNode=$?
+  isNode=$?
 fi
-if [ $isValidNode -eq 0 ]; then
+if [ $isNode -eq 0 ]; then
   echo "Installer is using your system NodeJS."
   node install.js `which node` $1
 else
