@@ -3,11 +3,14 @@
 cd "$(dirname "$0")/app"
 
 which node 2>/dev/null
-echo NodeJS status = $?
-if [ $? -eq 0 ]; then
+isNode=$?
+echo NodeJS status = $isNode
+
+if [ $isNode -eq 0 ]; then
   node -e "process.exit(Number(process.version.substr(1).split('.')[0]) > 5 ? 0 : 1)"
+  isValidNode=$?
 fi
-if [ $? -eq 0 ]; then
+if [ $isValidNode -eq 0 ]; then
   echo "Installer is using your system NodeJS."
   node install.js `which node` $1
 else
