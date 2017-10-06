@@ -19,6 +19,6 @@ else
   if [ ${MACHINE_TYPE} == 'x86_64' ]; then
     ../node/x64/node install.js --add_node $1
   else
-    ../node/x86/node install.js --add_nodes $1
+    ../node/x86/node install.js --add_node $1
   fi
 fi
