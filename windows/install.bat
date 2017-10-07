@@ -1,5 +1,7 @@
 @echo off
 
+SET PATH=C:\Windows\System32;%PATH%
+
 ECHO .. Writting to Chrome Registry
 ECHO .. Key: HKCU\Software\Google\Chrome\NativeMessagingHosts\com.add0n.node
 REG ADD "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%LocalAPPData%\com.add0n.node\manifest-chrome.json" /f
