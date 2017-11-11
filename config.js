@@ -40,7 +40,9 @@ exports.ids = {
     'ljealnphmlekclcdoeficainfegfjgkc', // Country Flags (Opera)
     'djlddpgigallklconlgapabopblddaki', // Edit with Photoshop (Chrome) [By @ray-lothian]
     'babedbfkpnfmnopiagfocoelpfmpldkc', // Edit with Photoshop (Opera) [By @ray-lothian]
-    'kakiifnbkffafinaifemmingfmfjdklh', // Edit with Paint.Net (Opera) [By @ray-lothian]
+    'kakiifnbkffafinaifemmingfmfjdklh', // Edit with Paint.Net (Chrome) [By @ray-lothian]
+    'cbdomccfnegbmmpfakfpnonihdnfmonn', // Edit with Paint.Net (Opera) [By @ray-lothian]
+    'oahnpfaakepnaabalmemoljdonbdjeei', // Easy Video Downloader (Opera) [By @ray-lothian]
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
@@ -61,5 +63,6 @@ exports.ids = {
     '{802a552e-13d1-4683-a40a-1e5325fba4bb}', // Country Flag
     '{e127aaca-d162-4e4c-8de6-a5ee4de1a2ec}', // Edit with Photoshop [By @ray-lothian]
     '{3e8ae4b2-678d-4a63-8104-4d4d8d3b4f46}', // Edit with Paint.Net [By @ray-lothian]
+    '{cd04e15e-6b23-4648-860d-0057602a5c2a}', // Easy Video Downloader [By @ray-lothian]
   ]
 };
