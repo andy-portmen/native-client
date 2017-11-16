@@ -16,6 +16,11 @@ This [NodeJS](https://nodejs.org/) based small client helps the following extens
 
 You can find up-to-date list as well as IDs here: https://github.com/andy-portmen/native-client/blob/master/config.js
 
+How to install
+
+  * Windows: https://www.youtube.com/watch?v=yZAoy8SOd7o
+  * Linux and Mac: https://www.youtube.com/watch?v=2asPoW2gJ-c
+
 Notes:
 
 1. On Linux and Mac, installer script only copies node executable if it is not already defined in the PATH environment. Please make sure you have an up-to-date version of NodeJS

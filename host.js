@@ -24,7 +24,7 @@ var files = [];
 var sprocess = [];
 
 var config = {
-  version: '0.6.4'
+  version: '0.6.5'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -128,7 +128,6 @@ function observe(msg, push, done) {
           });
         });
         file.on('error', e => {
-          console.error(e);
           res.statusCode = 400;
           res.end('HTTP/1.1 400 Bad Request');
         });
@@ -240,6 +239,7 @@ function observe(msg, push, done) {
     });
     done();
   }
+  /* cmd === download is deprecated. Use browser's built-in download manager */
   else if (msg.cmd === 'download') {
     const file = fs.createWriteStream(msg.filepath);
     const request = https.get({
