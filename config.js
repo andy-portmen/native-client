@@ -43,6 +43,7 @@ exports.ids = {
     'kakiifnbkffafinaifemmingfmfjdklh', // Edit with Paint.Net (Chrome) [By @ray-lothian]
     'cbdomccfnegbmmpfakfpnonihdnfmonn', // Edit with Paint.Net (Opera) [By @ray-lothian]
     'oahnpfaakepnaabalmemoljdonbdjeei', // Easy Video Downloader (Opera) [By @ray-lothian]
+    'eaicplkoeceoelookkiaeekhodehdhde', // Easy Video Downloader (Chrome) [By @ray-lothian]
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
