@@ -44,8 +44,9 @@ exports.ids = {
     'cbdomccfnegbmmpfakfpnonihdnfmonn', // Edit with Paint.Net (Opera) [By @ray-lothian]
     'oahnpfaakepnaabalmemoljdonbdjeei', // Easy Video Downloader (Opera) [By @ray-lothian]
     'eaicplkoeceoelookkiaeekhodehdhde', // Easy Video Downloader (Chrome) [By @ray-lothian]
-    'oofmnabdpcibefadlibdpnnbglcehfpj', // Email Client for Notmuch [by @InBasic]
-    'ghnflaojldkldmjdiocenfmeonemoogb', // Email Client for Notmuch [by @InBasic]
+    'oofmnabdpcibefadlibdpnnbglcehfpj', // Email Client for Notmuch [By @InBasic]
+    'ghnflaojldkldmjdiocenfmeonemoogb', // Email Client for Notmuch [By @InBasic]
+    'lhplfipknbnglagbgbfogdaihdcekfga', // Open in Foxit Reader [By @lunu-bounir]
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
@@ -67,6 +68,7 @@ exports.ids = {
     '{e127aaca-d162-4e4c-8de6-a5ee4de1a2ec}', // Edit with Photoshop [By @ray-lothian]
     '{3e8ae4b2-678d-4a63-8104-4d4d8d3b4f46}', // Edit with Paint.Net [By @ray-lothian]
     '{cd04e15e-6b23-4648-860d-0057602a5c2a}', // Easy Video Downloader [By @ray-lothian]
-    '{8e409c88-e088-4ce8-8506-5a91e6c502a8}', // Email Client for Notmuch [by @InBasic]
+    '{8e409c88-e088-4ce8-8506-5a91e6c502a8}', // Email Client for Notmuch [By @InBasic]
+    '{655859e0-3c86-43a1-9794-88721dacc481}', // Open in Foxit Reader [By @lunu-bounir]
   ]
 };
