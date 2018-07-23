@@ -47,6 +47,7 @@ exports.ids = {
     'oofmnabdpcibefadlibdpnnbglcehfpj', // Email Client for Notmuch [By @InBasic]
     'ghnflaojldkldmjdiocenfmeonemoogb', // Email Client for Notmuch [By @InBasic]
     'lhplfipknbnglagbgbfogdaihdcekfga', // Open in Foxit Reader [By @lunu-bounir]
+    'dkkkgkdappindobbhmcjnjidkggbdiil', // Open in PDF-XChange Viewer [By @lunu-bounir]
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
@@ -70,5 +71,6 @@ exports.ids = {
     '{cd04e15e-6b23-4648-860d-0057602a5c2a}', // Easy Video Downloader [By @ray-lothian]
     '{8e409c88-e088-4ce8-8506-5a91e6c502a8}', // Email Client for Notmuch [By @InBasic]
     '{655859e0-3c86-43a1-9794-88721dacc481}', // Open in Foxit Reader [By @lunu-bounir]
+    '{00186e07-f704-41ce-90aa-b09d4f49a7db}', // Open in PDF-XChange Viewer [By @lunu-bounir]
   ]
 };
