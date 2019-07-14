@@ -50,6 +50,7 @@ exports.ids = {
     'dkkkgkdappindobbhmcjnjidkggbdiil', // Open in PDF-XChange Viewer [By @lunu-bounir]
     'bhfenhhfpcpkknkahnlogooiodcofkjl', // Open in Chromium (Chrome)
     'dilpigogejfnnahbbmnpjmccammdaiom', // Open in Chromium (Opera)
+    'mgmnomlncpmfgelhofilonnecmbdaoia', // Open in Brave (Chrome) [By @brian-girko]
   ],
   firefox: [
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
@@ -75,5 +76,6 @@ exports.ids = {
     '{655859e0-3c86-43a1-9794-88721dacc481}', // Open in Foxit Reader [By @lunu-bounir]
     '{00186e07-f704-41ce-90aa-b09d4f49a7db}', // Open in PDF-XChange Viewer [By @lunu-bounir]
     '{4d3bd246-4326-4ec1-bb49-a27cfd57ca08}', // Open in Chromium
+    '{c88f6be2-3757-446b-be27-27eedddbcae0}', // Open in Brave [By @brian-girko]
   ]
 };
