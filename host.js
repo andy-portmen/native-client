@@ -1,4 +1,3 @@
-/* globals global, require, process, Buffer */
 'use strict';
 
 function lazyRequire(lib, name) {
@@ -11,20 +10,17 @@ function lazyRequire(lib, name) {
   return global[name];
 }
 
-var spawn = require('child_process').spawn;
-var fs = lazyRequire('fs');
-var net = lazyRequire('net');
-var os = lazyRequire('os');
-var path = lazyRequire('path');
-var http = lazyRequire('./follow-redirects').http;
-var https = lazyRequire('./follow-redirects').https;
+const spawn = require('child_process').spawn;
+const fs = lazyRequire('fs');
+const os = lazyRequire('os');
+const path = lazyRequire('path');
 
-var server;
-var files = [];
-var sprocess = [];
+let server;
+let files = [];
+const sprocess = [];
 
-var config = {
-  version: '0.7.2'
+const config = {
+  version: '0.8.0'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -44,12 +40,12 @@ process.stdin.on('end', () => {
   process.exit();
 });
 
-/////////////////process.on('uncaughtException', e => console.error(e));
+// process.on('uncaughtException', e => console.error(e));
 
 function observe(msg, push, done) {
   if (msg.cmd === 'version') {
     push({
-      version: config.version,
+      version: config.version
     });
     done();
   }
@@ -108,6 +104,7 @@ function observe(msg, push, done) {
     done();
   }
   else if (msg.cmd === 'ifup') {
+    const http = require('./follow-redirects').http;
     server = http.createServer(function(req, res) {
       if (req.headers['api-key'] !== msg.key) {
         res.statusCode = 400;
@@ -127,7 +124,7 @@ function observe(msg, push, done) {
             res.end('File is stored locally');
           });
         });
-        file.on('error', e => {
+        file.on('error', () => {
           res.statusCode = 400;
           res.end('HTTP/1.1 400 Bad Request');
         });
@@ -239,46 +236,6 @@ function observe(msg, push, done) {
     });
     done();
   }
-  /* cmd === download is deprecated. Use browser's built-in download manager */
-  else if (msg.cmd === 'download') {
-    const file = fs.createWriteStream(msg.filepath);
-    const request = https.get({
-      hostname: msg.hostname,
-      port: msg.port,
-      path: msg.path
-    }, response => {
-      const size = parseInt(response.headers['content-length']);
-      response.pipe(file);
-      file.on('finish', () => {
-        if (msg.chmod) {
-          fs.chmodSync(msg.filepath, msg.chmod);
-        }
-        file.close(() => {
-          const s = fs.statSync(msg.filepath).size;
-          push({
-            size,
-            path: msg.filepath,
-            code: s === size ? 0 : 1004,
-            error: s !== size ? `file-size (${s}) does not match the header content-length (${size}).
-              Link: ${msg.hostname}/${msg.path}` : null
-          });
-          done();
-        });
-      });
-    });
-    request.on('error', err => {
-      fs.unlink(msg.filepath);
-      push({
-        error: err.message,
-        code: 1001
-      });
-      done();
-    });
-    request.on('socket', function(socket) {
-      socket.setTimeout(msg.timeout || 60000);
-      socket.on('timeout', () => request.abort());
-    });
-  }
   else if (msg.cmd === 'save-data') {
     const matches = msg.data.match(/^data:.+\/(.+);base64,(.*)$/);
     if (matches && matches.length) {
@@ -323,6 +280,7 @@ function observe(msg, push, done) {
   }
   else if (msg.cmd === 'net') {
     let stdout = '';
+    const net = require('net');
     const connection = net.connect({
       port: msg.port,
       host: msg.host,
@@ -462,7 +420,7 @@ function observe(msg, push, done) {
       require: name => (msg.permissions || []).indexOf(name) === -1 ? null : require(name)
     };
     const script = new vm.Script(msg.script);
-    const context = new vm.createContext(sandbox);
+    const context = vm.createContext(sandbox);
     script.runInContext(context);
   }
   else {
@@ -475,14 +433,14 @@ function observe(msg, push, done) {
   }
 }
 /* message passing */
-var nativeMessage = require('./messaging');
+const nativeMessage = require('./messaging');
 
-var input = new nativeMessage.Input();
-var transform = new nativeMessage.Transform(observe);
-var output = new nativeMessage.Output();
+const input = new nativeMessage.Input();
+const transform = new nativeMessage.Transform(observe);
+const output = new nativeMessage.Output();
 
 process.stdin
-    .pipe(input)
-    .pipe(transform)
-    .pipe(output)
-    .pipe(process.stdout);
+  .pipe(input)
+  .pipe(transform)
+  .pipe(output)
+  .pipe(process.stdout);

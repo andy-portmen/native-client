@@ -2,7 +2,7 @@
 
 Native Client [![Build Status](https://travis-ci.org/andy-portmen/native-client.svg?branch=master)](https://travis-ci.org/andy-portmen/native-client)
 
-This [NodeJS](https://nodejs.org/) based small client helps the following extensions to communicate with your operating system. To see the latest log visit [travis-ci.org](https://travis-ci.org/andy-portmen/native-client).
+This [NodeJS](https://nodejs.org/)-based small client helps the following extensions to communicate with your operating system. To see the latest log visit [travis-ci.org](https://travis-ci.org/andy-portmen/native-client).
 
 1. Open in Firefox [open Firefox browser with provided URL]
 1. Open in Google Chrome [open Google Chrome browser with provided URL]
@@ -14,7 +14,7 @@ This [NodeJS](https://nodejs.org/) based small client helps the following extens
 7. Open in VLC media Player [open VLC media Player with provided URL]
 8. Media Converter and Muxer [Download FFmpeg media converter, Open FFmpeg, Export media files to a temporary directory then call FFmpeg]
 
-You can find up-to-date list as well as IDs here: https://github.com/andy-portmen/native-client/blob/master/config.js
+You can find the complete list as well as official IDs in the [config.js](https://github.com/andy-portmen/native-client/blob/master/config.js) file.
 
 How to install
 

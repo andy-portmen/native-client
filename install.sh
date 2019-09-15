@@ -12,10 +12,12 @@ if [ $isNode -eq 0 ]; then
 fi
 if [ $isNode -eq 0 ]; then
   echo "Installer is using your system NodeJS."
+  echo
   node install.js `which node` $1
 else
   MACHINE_TYPE=`uname -m`
-  echo "Installer is using the attached NodeJS"
+  echo "Installer is using the embedded NodeJS"
+  echo
   if [ ${MACHINE_TYPE} == 'x86_64' ]; then
     ../node/x64/node install.js --add_node $1
   else
