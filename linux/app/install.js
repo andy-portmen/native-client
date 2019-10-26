@@ -135,6 +135,11 @@ async function firefox() {
       '.waterfox/native-messaging-hosts'
     ), 'firefox');
     console.log(' -> Waterfox Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
+      '.thunderbird/native-messaging-hosts'
+    ), 'firefox');
+    console.log(' -> Thunderbird Email Client is supported');
   }
 }
 

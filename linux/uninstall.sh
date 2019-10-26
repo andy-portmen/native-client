@@ -6,6 +6,10 @@ echo " -> Removing manifest file for Chromium"
 rm -f ~/.config/chromium/NativeMessagingHosts/com.add0n.node.json
 echo " -> Removing manifest file for Mozilla Firefox"
 rm -f ~/.mozilla/native-messaging-hosts/com.add0n.node.json
+echo " -> Removing manifest file for Waterfox"
+rm -f ~/.waterfox/native-messaging-hosts/com.add0n.node.json
+echo " -> Removing manifest file for Thunderbird"
+rm -f ~/.thunderbird/native-messaging-hosts/com.add0n.node.json
 echo " -> Removing executables"
 rm -f -r ~/.config/com.add0n.node
 
