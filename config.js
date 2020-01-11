@@ -54,6 +54,7 @@ exports.ids = {
     'ojmcfmboidiokgkgmilnmjnjkdbgakpn', // Open in Sumatra (Opera)
   ],
   firefox: [
+    '{b8fa78dd-dae1-4839-9d0e-ce5e213083ce}', // Open in GIMP
     '{5610edea-88c1-4370-b93d-86aa131971d1}', // Open in IE
     '{94782f74-1a58-4332-a803-00006221a9d0}', // Open in Edge
     '{3128fe8f-f039-42ea-8b12-126f78387074}', // Open in Safari
