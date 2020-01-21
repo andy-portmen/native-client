@@ -28,6 +28,10 @@ exports.ids = {
     'ldoihpohemnbokndocafmiblepbjeacb', // Open in Vivaldi (Opera)
     'dijcjcnibopfdgbmpkgnjfdihfdeghcc', // Open in Tor Browser (Chrome)
     'emlgnifoahkaeocfmafkpnfbijoioefh', // Open in Tor Browser (Opera)
+    'baailbcimkljcoiocaodblapjgklhgdm', // Open in Pale Moon (Chrome)
+    'cglibgbhfapdcidmcpnbbekdanacjgkf', // Open in Pale Moon (Opera)
+    'eekmpanhabepggphkcpnkngfmifkffip', // Open in Waterfox (Chrome)
+    'hedcbilfmphgkpnokgcflaljgpecagfd', // Open in Waterfox (Opera)
     'kjoabfljeghcinlpjhdbdfbcflapkccm', // Tor Control (Chrome)
     'knfbgpkbkfebddfbklfpgmdjgolnkkfl', // Tor Control (Opera)
     'khgbdhkpcapllhgfekjegcinegfhjbmi', // YVAD by (Opera) [By @InBasic]
@@ -60,6 +64,8 @@ exports.ids = {
     '{3128fe8f-f039-42ea-8b12-126f78387074}', // Open in Safari
     '{8db82a75-48fd-452a-81cf-bd40b2e60dac}', // Open in Opera
     '{42dce5a2-467b-4d7b-ad11-50f4ab3d03cf}', // Open in Yandex
+    '{15a602dd-abe0-4cff-875b-c5acd77727b6}', // Open in Pale Moon
+    '{5cf4e3be-dd11-4589-befe-1b9e5037792b}', // Open in Waterfox
     '{0ff128a1-c286-4e73-bffa-9ae879b244d5}', // Media Converter
     '{65b77238-bb05-470a-a445-ec0efe1d66c4}', // External Application Button
     '{086f665e-6a55-4107-9147-f9a14e72b137}', // Open in Chrome
