@@ -3,6 +3,12 @@
 echo .. Deleting Chrome Registry
 REG DELETE "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.add0n.node" /f
 
+echo .. Deleting Chromium Registry
+REG DELETE "HKEY_CURRENT_USER\Software\Chromium\NativeMessagingHosts\com.add0n.node" /f
+
+echo .. Deleting Microsoft Edge Registry
+REG DELETE "HKEY_CURRENT_USER\Software\Microsoft\Edge\NativeMessagingHosts\com.add0n.node" /f
+
 echo .. Deleting Firefox Registry
 REG DELETE "HKCU\SOFTWARE\Mozilla\NativeMessagingHosts\com.add0n.node" /f
 

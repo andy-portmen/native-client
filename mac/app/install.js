@@ -127,6 +127,16 @@ async function chrome() {
       'Library/Application Support/Vivaldi/NativeMessagingHosts'
     ), 'chrome');
     console.log(' -> Vivaldi Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
+      'Library/Application Support/BraveSoftware/Brave-Browser/NativeMessagingHosts'
+    ), 'chrome');
+    console.log(' -> Brave Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
+      'Library/Application Support/Microsoft Edge/NativeMessagingHosts'
+    ), 'chrome');
+    console.log(' -> Microsoft Edge Browser is supported');
   }
 }
 async function firefox() {
@@ -141,6 +151,11 @@ async function firefox() {
       'Library/Application Support/Waterfox/NativeMessagingHosts'
     ), 'firefox');
     console.log(' -> Waterfox Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
+      'Library/Application Support/TorBrowser-Data/Browser/Mozilla/NativeMessagingHosts'
+    ), 'firefox');
+    console.log(' -> Tor Browser is supported');
     await manifest(path.join(
       process.env.HOME,
       'Library/Application Support/Thunderbird/NativeMessagingHosts'

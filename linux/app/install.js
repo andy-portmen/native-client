@@ -121,6 +121,16 @@ async function chrome() {
       '.config/vivaldi/NativeMessagingHosts'
     ), 'chrome');
     console.log(' -> Vivaldi Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
+      '.config/BraveSoftware/Brave-Browser/NativeMessagingHosts'
+    ), 'chrome');
+    console.log(' -> Brave Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
+      '.config/microsoftedge/NativeMessagingHosts'
+    ), 'chrome');
+    console.log(' -> Microsoft Edge Browser is supported');
   }
 }
 async function firefox() {
@@ -135,6 +145,11 @@ async function firefox() {
       '.waterfox/native-messaging-hosts'
     ), 'firefox');
     console.log(' -> Waterfox Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
+      '.tor-browser/app/Browser/TorBrowser/Data/Browser/.mozilla/native-messaging-hosts'
+    ), 'firefox');
+    console.log(' -> Tor Browser is supported');
     await manifest(path.join(
       process.env.HOME,
       '.thunderbird/native-messaging-hosts'
