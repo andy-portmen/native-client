@@ -21,6 +21,7 @@ exports.ids = {
     'enemdfoackoekaedijjmjlckkleokhih', // External Application Button (Opera)
     'ihpiinojhnfhpdmmacgmpoonphhimkaj', // Open in VLC (Chrome)
     'jfpmkcifglhenaihlnefaccjbmcmbigf', // Open in VLC (Opera)
+    'hjfcjapkfahlmlefedkkpbbkeddpnnlc', // Open in VLC (Edge)
     'gmdcejkkcimnbfmicdpohgicekomipde', // Open in Chrome (Opera)
     'gkmonffckeeffppchajngpdakfppalfo', // Auto Shutdown (Chrome)
     'iajkcajifgglcaojccgiohphgjmoleia', // Auto Shutdown (Opera)
@@ -56,6 +57,7 @@ exports.ids = {
     'mgmnomlncpmfgelhofilonnecmbdaoia', // Open in Brave (Chrome) [By @brian-girko]
     'pfenoignchfmjmphnpfihgockdhejcjf', // Open in Sumatra (Chrome)
     'ojmcfmboidiokgkgmilnmjnjkdbgakpn', // Open in Sumatra (Opera)
+    'jhgoiobaaagifkfemgmhoiedfoanhhhi', // TEST
   ],
   firefox: [
     '{b8fa78dd-dae1-4839-9d0e-ce5e213083ce}', // Open in GIMP
