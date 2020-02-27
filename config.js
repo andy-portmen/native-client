@@ -4,6 +4,7 @@ exports.ids = {
   chrome: [
     'lmeddoobegbaiopohmpmmobpnpjifpii', // Open in Firefox (Chrome)
     'hhalgjmpmjelidhhjldondajffjbcmcg', // Open in Firefox (Opera)
+    'ajgodcbbfnpdbopgmfcgdbfhabbnilbp', // Open in Firefox (Edge)
     'poibpkhpegdblnblbkcppknekhkhmmlp', // Open in Edge (Chrome)
     'mjoebkkejejidnkfdekpbooceogbapnf', // Open in Edge (Chrome) by @rynu.smith
     'jjlkfjglmelpbkgfeebcdipalggpapag', // Open in Edge (Opera)
@@ -23,6 +24,7 @@ exports.ids = {
     'jfpmkcifglhenaihlnefaccjbmcmbigf', // Open in VLC (Opera)
     'hjfcjapkfahlmlefedkkpbbkeddpnnlc', // Open in VLC (Edge)
     'gmdcejkkcimnbfmicdpohgicekomipde', // Open in Chrome (Opera)
+    'hkjcboammhlecfomgabecgoppnncbhjp', // Open in Chrome (Edge)
     'gkmonffckeeffppchajngpdakfppalfo', // Auto Shutdown (Chrome)
     'iajkcajifgglcaojccgiohphgjmoleia', // Auto Shutdown (Opera)
     'klglmiipkjlhpeeopnnlkhdomjhbkpjh', // Open in Vivaldi (Chrome)
@@ -57,7 +59,6 @@ exports.ids = {
     'mgmnomlncpmfgelhofilonnecmbdaoia', // Open in Brave (Chrome) [By @brian-girko]
     'pfenoignchfmjmphnpfihgockdhejcjf', // Open in Sumatra (Chrome)
     'ojmcfmboidiokgkgmilnmjnjkdbgakpn', // Open in Sumatra (Opera)
-    'jhgoiobaaagifkfemgmhoiedfoanhhhi', // TEST
   ],
   firefox: [
     '{b8fa78dd-dae1-4839-9d0e-ce5e213083ce}', // Open in GIMP
