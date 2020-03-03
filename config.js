@@ -9,8 +9,10 @@ exports.ids = {
     'mjoebkkejejidnkfdekpbooceogbapnf', // Open in Edge (Chrome) by @rynu.smith
     'jjlkfjglmelpbkgfeebcdipalggpapag', // Open in Edge (Opera)
     'amojccmdnkdlcjcplmkijeenigbhfbpd', // Open in Opera (Chrome)
+    'eokgbaidifojhfknoiicmnffiaakelpm', // Open in Opera (Edge)
     'eoenobhieedpimobhembbgdcdhdcdcig', // Open in Safari (Chrome)
     'bdlaolidgmapdilglbocpmbfipdpfjef', // Open in Safari (Opera)
+    'ncemgeeikbbjoojolbihkpcoiomidhfi', // Open in IE (Edge)
     'noedpljikmfalclpadmnjbabbignpfge', // Open in IE (Opera)
     'agaecbnjediafcdopcfidcdiponjlmnk', // Open in IE (Chrome)
     'looohpideggedchhpphemdmppnmdkgfd', // Open in IE (Chrome) by @rynu.smith
