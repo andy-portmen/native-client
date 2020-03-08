@@ -39,6 +39,7 @@ exports.ids = {
     'hedcbilfmphgkpnokgcflaljgpecagfd', // Open in Waterfox (Opera)
     'kjoabfljeghcinlpjhdbdfbcflapkccm', // Tor Control (Chrome)
     'knfbgpkbkfebddfbklfpgmdjgolnkkfl', // Tor Control (Opera)
+    'ijhhpgjhnfoalaedkmgpbehokefplfni', // Tor Control (Edge)
     'khgbdhkpcapllhgfekjegcinegfhjbmi', // YVAD by (Opera) [By @InBasic]
     'cehiomcamjpnfmemkmpjadaclohoibgo', // Open in PDF viewer (Chrome)
     'honagjpkinogkppkapphkpdffnegagge', // Open in PDF viewer (Opera)
