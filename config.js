@@ -43,6 +43,7 @@ exports.ids = {
     'khgbdhkpcapllhgfekjegcinegfhjbmi', // YVAD by (Opera) [By @InBasic]
     'cehiomcamjpnfmemkmpjadaclohoibgo', // Open in PDF viewer (Chrome)
     'honagjpkinogkppkapphkpdffnegagge', // Open in PDF viewer (Opera)
+    'ciphgjdgpkhlngiadnpebblpcjcoabcp', // Open in PDF viewer (Edge)
     'nfpgfobeckckemhmggkdfjkjaiikadnd', // Open in Yandex (Chrome)
     'dlobcokaeaiaihfebfhpdoongldphgkf', // Open in Yandex (Opera)
     'bffjckjhidlcnenenacdahhpbacpgapo', // Country Flags (Chrome)
@@ -62,6 +63,7 @@ exports.ids = {
     'mgmnomlncpmfgelhofilonnecmbdaoia', // Open in Brave (Chrome) [By @brian-girko]
     'pfenoignchfmjmphnpfihgockdhejcjf', // Open in Sumatra (Chrome)
     'ojmcfmboidiokgkgmilnmjnjkdbgakpn', // Open in Sumatra (Opera)
+    'alighchillgifpgaigbgnmhnndoecalj', // TESSST
   ],
   firefox: [
     '{b8fa78dd-dae1-4839-9d0e-ce5e213083ce}', // Open in GIMP
