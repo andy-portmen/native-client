@@ -82,7 +82,7 @@ util.inherits(Output, stream.Transform);
 
 Output.prototype._transform = function(chunk, encoding, done) {
   const len = Buffer.alloc(4);
-  const buf = new Buffer(JSON.stringify(chunk));
+  const buf = Buffer.from(JSON.stringify(chunk), 'utf8');
 
   len.writeUInt32LE(buf.length, 0);
 

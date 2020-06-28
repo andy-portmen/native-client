@@ -63,7 +63,6 @@ exports.ids = {
     'mgmnomlncpmfgelhofilonnecmbdaoia', // Open in Brave (Chrome) [By @brian-girko]
     'pfenoignchfmjmphnpfihgockdhejcjf', // Open in Sumatra (Chrome)
     'ojmcfmboidiokgkgmilnmjnjkdbgakpn', // Open in Sumatra (Opera)
-    'alighchillgifpgaigbgnmhnndoecalj', // TESSST
   ],
   firefox: [
     '{b8fa78dd-dae1-4839-9d0e-ce5e213083ce}', // Open in GIMP
