@@ -22,6 +22,7 @@ exports.ids = {
     'cmjahocdpafkodabbojjaebogoigcipj', // Open in GIMP (Opera)
     'bifmfjgpgndemajpeeoiopbeilbaifdo', // External Application Button (Chrome)
     'enemdfoackoekaedijjmjlckkleokhih', // External Application Button (Opera)
+    'icfhhpfimihpdgglmdlnmpaadfeaacbk', // External Application Button (Edge)
     'ihpiinojhnfhpdmmacgmpoonphhimkaj', // Open in VLC (Chrome)
     'jfpmkcifglhenaihlnefaccjbmcmbigf', // Open in VLC (Opera)
     'hjfcjapkfahlmlefedkkpbbkeddpnnlc', // Open in VLC (Edge)
