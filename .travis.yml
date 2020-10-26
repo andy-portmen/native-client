@@ -13,6 +13,7 @@ deploy:
     - linux.zip
     - mac.zip
     - src_no_node.zip
+    - linux.deb
   on:
     tags: true
   overwrite: true

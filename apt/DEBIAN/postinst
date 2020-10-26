@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/opt/native-client/install.sh
+rm -rf /opt/native-client/

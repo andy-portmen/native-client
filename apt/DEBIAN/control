@@ -1,0 +1,9 @@
+Package: native-client
+Version: 0.9.1
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Installed-Size: 20480
+Maintainer: Andy Portmen
+Description: Native Messaging component for Windows, Linux, and Mac OS that is written in NodeJS

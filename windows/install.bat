@@ -10,12 +10,12 @@ IF EXIST "%~dp0\app\install.js" (GOTO :EXISTING) ELSE GOTO :MISSING
   REG ADD "HKCU\Software\Google\Chrome\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%LocalAPPData%\com.add0n.node\manifest-chrome.json" /f
 
   ECHO .. Writting to Chromium Registry
-  ECHO .. Key: HKEY_CURRENT_USER\Software\Chromium\NativeMessagingHosts\com.add0n.node
-  REG ADD "HKEY_CURRENT_USER\Software\Chromium\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%LocalAPPData%\com.add0n.node\manifest-chrome.json" /f
+  ECHO .. Key: HKCU\Software\Chromium\NativeMessagingHosts\com.add0n.node
+  REG ADD "HKCU\Software\Chromium\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%LocalAPPData%\com.add0n.node\manifest-chrome.json" /f
 
   ECHO .. Writting to Edge Registry
-  ECHO .. Key: HKEY_CURRENT_USER\Software\Microsoft\Edge\NativeMessagingHosts\com.add0n.node
-  REG ADD "HKEY_CURRENT_USER\Software\Microsoft\Edge\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%LocalAPPData%\com.add0n.node\manifest-chrome.json" /f
+  ECHO .. Key: HKCU\Software\Microsoft\Edge\NativeMessagingHosts\com.add0n.node
+  REG ADD "HKCU\Software\Microsoft\Edge\NativeMessagingHosts\com.add0n.node" /ve /t REG_SZ /d "%LocalAPPData%\com.add0n.node\manifest-chrome.json" /f
 
   ECHO .. Writting to Firefox Registry
   ECHO .. Key: HKCU\SOFTWARE\Mozilla\NativeMessagingHosts\com.add0n.node
