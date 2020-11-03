@@ -1,4 +1,3 @@
 #!/bin/sh
 
-/usr/share/native-client/install.sh
 rm -rf /usr/share/native-client
