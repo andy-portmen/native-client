@@ -54,6 +54,7 @@ exports.ids = {
     'hkjcboammhlecfomgabecgoppnncbhjp', // Open in Chrome (Edge)
     'ijhhpgjhnfoalaedkmgpbehokefplfni', // Tor Control (Edge)
     'ciphgjdgpkhlngiadnpebblpcjcoabcp', // Open in PDF viewer (Edge)
+    'apldpaggahklckhcoaoifaolmifdnecg', // Media Converter (Edge) [By @InBasic]
   ],
   firefox: [
     '{b8fa78dd-dae1-4839-9d0e-ce5e213083ce}', // Open in GIMP
