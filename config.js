@@ -20,6 +20,7 @@ exports.ids = {
     'mgmnomlncpmfgelhofilonnecmbdaoia', // Open in Brave (Chrome) [By @brian-girko]
     'oofmnabdpcibefadlibdpnnbglcehfpj', // Email Client for Notmuch (Chrome) [By @InBasic]
     'lhplfipknbnglagbgbfogdaihdcekfga', // Open in Foxit Reader (Chrome) [By @lunu-bounir]
+    'balknnpjeohaolphkfhghbaapifbokik', // Open in Onion Browser (Chrome) [By @joue_quroi]
 
     'hhalgjmpmjelidhhjldondajffjbcmcg', // Open in Firefox (Opera)
     'jjlkfjglmelpbkgfeebcdipalggpapag', // Open in Edge (Opera)
