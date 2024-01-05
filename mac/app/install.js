@@ -119,6 +119,11 @@ async function chrome() {
     console.log(' -> Chrome Browser is supported');
     await manifest(path.join(
       process.env.HOME,
+      'Library/Application Support/Google/Chrome Canary/NativeMessagingHosts'
+    ), 'chrome');
+    console.log(' -> Chrome Canary Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
       'Library/Application Support/Chromium/NativeMessagingHosts'
     ), 'chrome');
     console.log(' -> Chromium Browser is supported');
