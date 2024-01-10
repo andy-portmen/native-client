@@ -131,6 +131,11 @@ async function chrome() {
       '.config/microsoftedge/NativeMessagingHosts'
     ), 'chrome');
     console.log(' -> Microsoft Edge Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
+      '.config/sidekick/NativeMessagingHosts'
+    ), 'chrome');
+    console.log(' -> Sidekick Browser is supported');
   }
 }
 async function firefox() {
