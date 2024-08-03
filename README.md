@@ -21,6 +21,13 @@ How to install
   * Windows: https://www.youtube.com/watch?v=yZAoy8SOd7o
   * Linux and Mac: https://www.youtube.com/watch?v=2asPoW2gJ-c
 
+How to install using [`npm`](https://github.com/andy-portmen/native-client-npm)
+
+```bash
+npm install native-client
+npm run install --prefix node_modules/native-client
+```
+
 Notes:
 
 1. On Linux and Mac, installer script only copies node executable if it is not already defined in the PATH environment. Please make sure you have an up-to-date version of NodeJS
