@@ -19,7 +19,11 @@ else
   echo "Installer is using the embedded NodeJS"
   echo
   if [[ $OSTYPE == 'darwin'* ]]; then
-    ../node/x64/node install.js --add_node $1
+    if [[ $MACHINE_TYPE == 'arm64' ]]; then
+      ../node/arm64/node install.js --add_node $1
+    else
+      ../node/x64/node install.js --add_node $1
+    fi
   elif [ ${MACHINE_TYPE} == 'x86_64' ]; then
     ../node/x64/node install.js --add_node $1
   else
