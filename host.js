@@ -49,7 +49,7 @@ function observe(msg, push, done) {
     });
     done();
   }
-  if (msg.cmd === 'spec') {
+  else if (msg.cmd === 'spec') {
     push({
       version: config.version,
       env: process.env,
