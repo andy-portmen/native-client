@@ -20,7 +20,7 @@ let files = [];
 const sprocess = [];
 
 const config = {
-  version: '0.9.8'
+  version: '0.9.9'
 };
 // closing node when parent process is killed
 process.stdin.resume();

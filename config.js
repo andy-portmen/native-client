@@ -55,6 +55,7 @@ exports.ids = {
     'hkjcboammhlecfomgabecgoppnncbhjp', // Open in Chrome (Edge)
     'ijhhpgjhnfoalaedkmgpbehokefplfni', // Tor Control (Edge)
     'ciphgjdgpkhlngiadnpebblpcjcoabcp', // Open in PDF viewer (Edge)
+    'hmkmedgmocnmelekbdpogdpednpfjdne', // Country Flags (Edge)
     'apldpaggahklckhcoaoifaolmifdnecg', // Media Converter (Edge) [By @InBasic]
   ],
   firefox: [
@@ -77,7 +78,7 @@ exports.ids = {
     '{f73df109-8fb4-453e-8373-f59e61ca4da3}', // YVAD [By @InBasic]
     '{d22a1484-dcef-44e9-ab52-80f0f4a331a3}', // Tor Control
     '{0d3afca0-aedf-491f-b0f9-9ffc22113ea8}', // Open in PDF viewer
-    '{802a552e-13d1-4683-a40a-1e5325fba4bb}', // Country Flag
+    '{802a552e-13d1-4683-a40a-1e5325fba4bb}', // Country Flags
     '{3e8ae4b2-678d-4a63-8104-4d4d8d3b4f46}', // Edit with Paint.Net [By @ray-lothian]
     '{cd04e15e-6b23-4648-860d-0057602a5c2a}', // Easy Video Downloader [By @ray-lothian]
     '{8e409c88-e088-4ce8-8506-5a91e6c502a8}', // Email Client for Notmuch [By @InBasic]
