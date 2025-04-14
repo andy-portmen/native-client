@@ -83,7 +83,6 @@ async function firefox() {
     await firefox();
     await application();
     console.log('.. Native Host is installed in', dir);
-    console.log('\n\n>>> host is ready <<<\n\n');
   }
   catch (e) {
     console.error(e);
