@@ -89,6 +89,10 @@ function observe(msg, push, done) {
       });
       done();
     });
+    if (msg.stdin) {
+      sp.stdin.write(msg.stdin);
+      sp.stdin.end();
+    }
   }
   else if (msg.cmd === 'clean-tmp') {
     files.forEach(file => {
@@ -169,6 +173,10 @@ function observe(msg, push, done) {
       });
       done();
     });
+    if (msg.stdin) {
+      sp.stdin.write(msg.stdin);
+      sp.stdin.end();
+    }
   }
   else if (msg.cmd === 'dir') {
     const files = [];

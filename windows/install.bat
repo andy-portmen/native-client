@@ -36,21 +36,32 @@ IF EXIST "%~dp0\app\install.js" (GOTO :EXISTING) ELSE GOTO :MISSING
 
   :: Determine architecture and set download file
   IF "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
-      set ARCHIVE_NAME=node-%NODE_VERSION%-win-x64.zip
-      set ARCHIVE_DIR=node-%NODE_VERSION%-win-x64
+    set ARCHIVE_NAME=node-%NODE_VERSION%-win-x64.zip
+    set ARCHIVE_DIR=node-%NODE_VERSION%-win-x64
   ) ELSE (
-      set ARCHIVE_NAME=node-%NODE_VERSION%-win-x86.zip
-      set ARCHIVE_DIR=node-%NODE_VERSION%-win-x86
+    set ARCHIVE_NAME=node-%NODE_VERSION%-win-x86.zip
+    set ARCHIVE_DIR=node-%NODE_VERSION%-win-x86
   )
 
   :: Download Node.js archive
   ECHO .. Downloading %BASE_URL%%ARCHIVE_NAME%
-  curl -k -o "%TEMP_DIR%\%ARCHIVE_NAME%" "%BASE_URL%%ARCHIVE_NAME%"
+  :: Check if curl is available
+  WHERE curl >nul 2>&1
+  if %errorlevel%==0 (
+      ECHO    Using curl...
+      curl -k -o "%TEMP_DIR%\%ARCHIVE_NAME%" "%BASE_URL%%ARCHIVE_NAME%"
+  ) else (
+      echo    Using PowerShell...
+      powershell -Command ^
+        "[System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true};" ^
+        "try { Invoke-WebRequest -Uri '%BASE_URL%%ARCHIVE_NAME%' -OutFile '%TEMP_DIR%\%ARCHIVE_NAME%' -UseBasicParsing } catch { exit 1 }"
+  )
   if errorlevel 1 (
     ECHO Failed to download %ARCHIVE_NAME%
     pause
     exit /b 1
   )
+  ECHO .. Download complete: %TEMP_DIR%\%ARCHIVE_NAME%
 
   :: Extract archive
   ECHO .. Extracting %ARCHIVE_NAME%...
