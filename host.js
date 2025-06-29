@@ -20,7 +20,7 @@ let files = [];
 const sprocess = [];
 
 const config = {
-  version: '1.0.0'
+  version: '1.0.1'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -89,8 +89,8 @@ function observe(msg, push, done) {
       });
       done();
     });
-    if (msg.stdin) {
-      sp.stdin.write(msg.stdin);
+    if (Array.isArray(msg.stdin)) {
+      msg.stdin.forEach(c => sp.stdin.write(c));
       sp.stdin.end();
     }
   }
@@ -173,8 +173,8 @@ function observe(msg, push, done) {
       });
       done();
     });
-    if (msg.stdin) {
-      sp.stdin.write(msg.stdin);
+    if (Array.isArray(msg.stdin)) {
+      msg.stdin.forEach(c => sp.stdin.write(c));
       sp.stdin.end();
     }
   }
