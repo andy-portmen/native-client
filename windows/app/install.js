@@ -48,17 +48,24 @@ function manifest(type) {
 }
 function application() {
   return new Promise((resolve, reject) => {
-    fs.writeFile(path.join(dir, 'run.bat'), `@echo off\n\n"%~dp0node.exe" "%~dp0host.js"`, e => {
+    // do we use global nodejs
+    const copyNode = process.argv[0].includes('Program Files') === false;
+
+    fs.writeFile(path.join(dir, 'run.bat'), `@echo off
+
+${copyNode ? '%~dp0node.exe' : 'node.exe'} "%~dp0host.js"`, e => {
       if (e) {
         return reject(e);
       }
       fs.createReadStream('host.js').pipe(fs.createWriteStream(path.join(dir, 'host.js')));
       fs.createReadStream('messaging.js').pipe(fs.createWriteStream(path.join(dir, 'messaging.js')));
       fs.createReadStream('follow-redirects.js').pipe(fs.createWriteStream(path.join(dir, 'follow-redirects.js')));
-      try {
-        fs.createReadStream(process.argv[0]).pipe(fs.createWriteStream(path.join(dir, 'node.exe')));
+      if (copyNode) {
+        try {
+          fs.createReadStream(process.argv[0]).pipe(fs.createWriteStream(path.join(dir, 'node.exe')));
+        }
+        catch (e) {}
       }
-      catch (e) {}
       resolve();
     });
   });
