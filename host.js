@@ -20,7 +20,7 @@ let files = [];
 const sprocess = [];
 
 const config = {
-  version: '1.0.1'
+  version: '1.0.2'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -163,8 +163,12 @@ function observe(msg, push, done) {
     }
     let stderr = '';
     let stdout = '';
-    sp.stdout.on('data', data => stdout += data);
-    sp.stderr.on('data', data => stderr += data);
+    if (sp.stdout) {
+      sp.stdout.on('data', data => stdout += data);
+    }
+    if (sp.stderr) {
+      sp.stderr.on('data', data => stderr += data);
+    }
     sp.on('close', code => {
       push({
         code,
@@ -173,9 +177,14 @@ function observe(msg, push, done) {
       });
       done();
     });
-    if (Array.isArray(msg.stdin)) {
-      msg.stdin.forEach(c => sp.stdin.write(c));
-      sp.stdin.end();
+    if (sp.stdin) {
+      if (Array.isArray(msg.stdin)) {
+        msg.stdin.forEach(c => sp.stdin.write(c));
+        sp.stdin.end();
+      }
+    }
+    if (msg.unref) {
+      sp.unref();
     }
   }
   else if (msg.cmd === 'dir') {
