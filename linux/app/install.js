@@ -102,7 +102,6 @@ function application() {
         }
         fs.createReadStream('host.js').pipe(fs.createWriteStream(path.join(dir, 'host.js')));
         fs.createReadStream('messaging.js').pipe(fs.createWriteStream(path.join(dir, 'messaging.js')));
-        fs.createReadStream('follow-redirects.js').pipe(fs.createWriteStream(path.join(dir, 'follow-redirects.js')));
         resolve();
       });
     });

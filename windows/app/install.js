@@ -59,7 +59,6 @@ ${copyNode ? '%~dp0node.exe' : 'node.exe'} "%~dp0host.js"`, e => {
       }
       fs.createReadStream('host.js').pipe(fs.createWriteStream(path.join(dir, 'host.js')));
       fs.createReadStream('messaging.js').pipe(fs.createWriteStream(path.join(dir, 'messaging.js')));
-      fs.createReadStream('follow-redirects.js').pipe(fs.createWriteStream(path.join(dir, 'follow-redirects.js')));
       if (copyNode) {
         try {
           fs.createReadStream(process.argv[0]).pipe(fs.createWriteStream(path.join(dir, 'node.exe')));
