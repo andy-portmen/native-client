@@ -9,6 +9,9 @@ REG DELETE "HKEY_CURRENT_USER\Software\Chromium\NativeMessagingHosts\com.add0n.n
 echo .. Deleting Microsoft Edge Registry
 REG DELETE "HKEY_CURRENT_USER\Software\Microsoft\Edge\NativeMessagingHosts\com.add0n.node" /f
 
+echo .. Deleting Perplexity Comet Registry
+REG DELETE "HKEY_CURRENT_USER\Software\Comet\NativeMessagingHosts\com.add0n.node" /f
+
 echo .. Deleting Firefox Registry
 REG DELETE "HKCU\SOFTWARE\Mozilla\NativeMessagingHosts\com.add0n.node" /f
 

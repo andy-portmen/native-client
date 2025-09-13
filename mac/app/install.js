@@ -139,6 +139,11 @@ async function chrome() {
       'Library/Application Support/Microsoft Edge/NativeMessagingHosts'
     ), 'chrome');
     console.log(' -> Microsoft Edge Browser is supported');
+    await manifest(path.join(
+      process.env.HOME,
+      'Library/Application Support/Comet/NativeMessagingHosts'
+    ), 'chrome');
+    console.log(' -> Perplexity Comet Browser is supported');
   }
 }
 async function firefox() {
