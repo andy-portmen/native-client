@@ -19,7 +19,7 @@ let files = [];
 const sprocess = [];
 
 const config = {
-  version: '1.0.4'
+  version: '1.0.6'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -180,11 +180,18 @@ function observe(msg, push, done) {
     script.runInContext(context);
   }
   else {
+    let error = 'This version of the native client does not support "' + msg.cmd + '" command. Check for updates...';
+    // Display warning about old unsupported commands
+    if (['ifup', 'dir', 'save-data', 'net', 'copy', 'remove', 'move'].includes(msg.cmd)) {
+      error = 'The "' + msg.cmd + '" command is no longer supported in this version of the native client. ' +
+        'Downgrade to version 0.9.7 if your extension requires this command.';
+    }
     push({
-      error: 'cmd is unknown',
+      error,
       cmd: msg.cmd,
       code: 1000
     });
+
     done();
   }
 }
