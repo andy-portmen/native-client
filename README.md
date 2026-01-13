@@ -28,6 +28,58 @@ npm install native-client
 npm run install --prefix node_modules/native-client
 ```
 
+## Flatpak Support (Linux)
+
+Native Client now supports Flatpak browsers automatically. During installation, the script will:
+- Detect all installed Flatpak browsers (Opera, Chrome, Chromium, Brave, Edge, Vivaldi, Firefox, LibreWolf)
+- Create native messaging manifests in `~/.var/app/<browser-app-id>/config/` directories
+- Automatically handle browser launches using `flatpak-spawn --host`
+
+### Automatic Flatpak App Detection
+
+The native client automatically detects Flatpak app IDs and launches them via `flatpak-spawn --host`. Any command containing a dot (`.`) is treated as a Flatpak app ID:
+
+- `ru.yandex.Browser` → launches via flatpak-spawn
+- `com.google.Chrome` → launches via flatpak-spawn
+- `org.mozilla.firefox` → launches via flatpak-spawn
+- `firefox` → launches directly (no flatpak-spawn)
+
+This allows browser extensions to specify Flatpak app IDs directly without special configuration.
+
+### Additional Configuration for Flatpak Browsers
+
+When using one Flatpak browser to open URLs in another Flatpak browser/application, grant the source browser permission to use `flatpak-spawn`:
+
+```bash
+# Grant permission to your Flatpak browser
+flatpak override --user <browser-app-id> --talk-name=org.freedesktop.Flatpak
+
+# Examples:
+flatpak override --user com.opera.Opera --talk-name=org.freedesktop.Flatpak
+flatpak override --user com.google.Chrome --talk-name=org.freedesktop.Flatpak
+flatpak override --user org.chromium.Chromium --talk-name=org.freedesktop.Flatpak
+flatpak override --user com.brave.Browser --talk-name=org.freedesktop.Flatpak
+```
+
+### Verify Flatpak Configuration
+
+Check if manifests were created:
+```bash
+ls ~/.var/app/com.opera.Opera/config/google-chrome/NativeMessagingHosts/
+```
+
+Verify permissions:
+```bash
+flatpak override --user --show com.opera.Opera
+```
+
+You should see `org.freedesktop.Flatpak=talk` in the output.
+
+### Supported Flatpak Browsers
+
+- **Chromium-based:** Opera, Chrome, Chromium, Brave, Microsoft Edge, Vivaldi
+- **Firefox-based:** Firefox, LibreWolf
+
 Notes:
 
 1. On Linux and Mac, installer script only copies node executable if it is not already defined in the PATH environment. Please make sure you have an up-to-date version of NodeJS

@@ -19,7 +19,7 @@ let files = [];
 const sprocess = [];
 
 const config = {
-  version: '1.0.6'
+  version: '1.0.7'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -36,6 +36,18 @@ process.stdin.on('end', () => {
 });
 
 // process.on('uncaughtException', e => console.error(e));
+
+// Helper function to wrap flatpak commands
+// Detects Flatpak app IDs (contain dots, e.g., ru.yandex.Browser, com.google.Chrome)
+function wrapFlatpakCommand(command, args) {
+  if (command.includes('.') && fs.existsSync('/usr/bin/flatpak-spawn')) {
+    return {
+      command: 'flatpak-spawn',
+      args: ['--host', 'flatpak', 'run', command].concat(args)
+    };
+  }
+  return {command, args};
+}
 
 function observe(msg, push, done) {
   if (msg.cmd === 'version') {
@@ -61,8 +73,16 @@ function observe(msg, push, done) {
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
-    const p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
-    const sp = spawn(p, msg.arguments || [], Object.assign({env: process.env}, msg.properties));
+
+    let p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    let args = msg.arguments || [];
+
+    // Auto-detect flatpak apps and wrap with flatpak-spawn --host
+    const wrapped = wrapFlatpakCommand(p, args);
+    p = wrapped.command;
+    args = wrapped.args;
+
+    const sp = spawn(p, args, Object.assign({env: process.env}, msg.properties));
 
     if (msg.kill) {
       sprocess.push(sp);
@@ -106,8 +126,16 @@ function observe(msg, push, done) {
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
-    const p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
-    const sp = spawn(p, msg.arguments || [], Object.assign({
+
+    let p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    let args = msg.arguments || [];
+
+    // Auto-detect flatpak apps and wrap with flatpak-spawn --host
+    const wrapped = wrapFlatpakCommand(p, args);
+    p = wrapped.command;
+    args = wrapped.args;
+
+    const sp = spawn(p, args, Object.assign({
       env: process.env,
       detached: true
     }, msg.properties));
