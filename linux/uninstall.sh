@@ -18,6 +18,17 @@ echo " -> Removing manifest file for Tor"
 rm -f ~/.tor-browser/app/Browser/TorBrowser/Data/Browser/.mozilla/native-messaging-hosts/com.add0n.node.json
 echo " -> Removing manifest file for Thunderbird"
 rm -f ~/.thunderbird/native-messaging-hosts/com.add0n.node.json
+
+echo " -> Removing manifest files for Flatpak browsers"
+rm -f ~/.var/app/com.opera.Opera/config/google-chrome/NativeMessagingHosts/com.add0n.node.json
+rm -f ~/.var/app/com.google.Chrome/config/google-chrome/NativeMessagingHosts/com.add0n.node.json
+rm -f ~/.var/app/org.chromium.Chromium/config/chromium/NativeMessagingHosts/com.add0n.node.json
+rm -f ~/.var/app/com.brave.Browser/config/BraveSoftware/Brave-Browser/NativeMessagingHosts/com.add0n.node.json
+rm -f ~/.var/app/com.microsoft.Edge/config/microsoftedge/NativeMessagingHosts/com.add0n.node.json
+rm -f ~/.var/app/com.vivaldi.Vivaldi/config/vivaldi/NativeMessagingHosts/com.add0n.node.json
+rm -f ~/.var/app/org.mozilla.firefox/.mozilla/native-messaging-hosts/com.add0n.node.json
+rm -f ~/.var/app/io.gitlab.librewolf-community/.librewolf/native-messaging-hosts/com.add0n.node.json
+
 echo " -> Removing executables"
 rm -f -r ~/.config/com.add0n.node
 
