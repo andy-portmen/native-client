@@ -166,10 +166,102 @@ async function firefox() {
   }
 }
 
+// Flatpak browser support
+const FLATPAK_BROWSERS = {
+  // Chromium-based browsers
+  'com.google.Chrome': {
+    path: 'config/google-chrome/NativeMessagingHosts',
+    type: 'chrome',
+    name: 'Google Chrome (Flatpak)'
+  },
+  'org.chromium.Chromium': {
+    path: 'config/chromium/NativeMessagingHosts',
+    type: 'chrome',
+    name: 'Chromium (Flatpak)'
+  },
+  'com.opera.Opera': {
+    path: 'config/google-chrome/NativeMessagingHosts',
+    type: 'chrome',
+    name: 'Opera (Flatpak)'
+  },
+  'com.brave.Browser': {
+    path: 'config/BraveSoftware/Brave-Browser/NativeMessagingHosts',
+    type: 'chrome',
+    name: 'Brave (Flatpak)'
+  },
+  'com.microsoft.Edge': {
+    path: 'config/microsoftedge/NativeMessagingHosts',
+    type: 'chrome',
+    name: 'Microsoft Edge (Flatpak)'
+  },
+  'com.vivaldi.Vivaldi': {
+    path: 'config/vivaldi/NativeMessagingHosts',
+    type: 'chrome',
+    name: 'Vivaldi (Flatpak)'
+  },
+  // Firefox-based browsers
+  'org.mozilla.firefox': {
+    path: '.mozilla/native-messaging-hosts',
+    type: 'firefox',
+    name: 'Firefox (Flatpak)'
+  },
+  'io.gitlab.librewolf-community': {
+    path: '.librewolf/native-messaging-hosts',
+    type: 'firefox',
+    name: 'LibreWolf (Flatpak)'
+  }
+};
+
+function getInstalledFlatpaks() {
+  const {execSync} = require('child_process');
+  try {
+    const output = execSync('/usr/bin/flatpak list --app --columns=application', {encoding: 'utf8'});
+    return output.trim().split('\n').filter(line => line.length > 0);
+  }
+  catch (e) {
+    // flatpak not installed or no apps
+    return [];
+  }
+}
+
+async function flatpak_browsers() {
+  const installed = getInstalledFlatpaks();
+  let count = 0;
+
+  for (const appId of installed) {
+    const browser = FLATPAK_BROWSERS[appId];
+    if (browser) {
+      // Check if we should install for this browser type
+      if ((browser.type === 'chrome' && ids.chrome.length) ||
+          (browser.type === 'firefox' && ids.firefox.length)) {
+        try {
+          const manifestPath = path.join(
+            process.env.HOME,
+            '.var/app',
+            appId,
+            browser.path
+          );
+          await manifest(manifestPath, browser.type);
+          console.log(` -> ${browser.name} is supported`);
+          count++;
+        }
+        catch (e) {
+          console.error(` -> Warning: Failed to install manifest for ${browser.name}:`, e.message);
+        }
+      }
+    }
+  }
+
+  if (count > 0) {
+    console.log(` -> Installed manifests for ${count} Flatpak browser(s)`);
+  }
+}
+
 (async () => {
   try {
     await chrome();
     await firefox();
+    await flatpak_browsers();
     await application();
     console.log(' => Native Host is installed in', dir);
     console.log('\n\n>>> host is ready <<<\n\n');
