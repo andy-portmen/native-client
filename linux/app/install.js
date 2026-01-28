@@ -199,6 +199,11 @@ const FLATPAK_BROWSERS = {
     type: 'chrome',
     name: 'Vivaldi (Flatpak)'
   },
+  'io.github.ungoogled_software.ungoogled_chromium': {
+    path: 'config/chromium/NativeMessagingHosts',
+    type: 'chrome',
+    name: 'Ungoogled Chromium (Flatpak)'
+  },
   // Firefox-based browsers
   'org.mozilla.firefox': {
     path: '.mozilla/native-messaging-hosts',
