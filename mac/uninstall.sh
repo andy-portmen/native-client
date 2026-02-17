@@ -2,6 +2,8 @@
 
 echo " -> Removing manifest file for Google Chrome"
 rm -f ~/Library/Application\ Support/Google/Chrome/NativeMessagingHosts/com.add0n.node.json
+echo " -> Removing manifest file for Google Chrome Canary"
+rm -f ~/Library/Application\ Support/Google/Chrome Canary/NativeMessagingHosts/com.add0n.node.json
 echo " -> Removing manifest file for Chromium"
 rm -f ~/Library/Application\ Support/Chromium/NativeMessagingHosts/com.add0n.node.json
 echo " -> Removing manifest file for Vivaldi"
