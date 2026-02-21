@@ -53,7 +53,7 @@ function application() {
 
     fs.writeFile(path.join(dir, 'run.bat'), `@echo off
 
-${copyNode ? '%~dp0node.exe' : 'node.exe'} "%~dp0host.js"`, e => {
+${copyNode ? '"%~dp0node.exe"' : 'node.exe'} "%~dp0host.js"`, e => {
       if (e) {
         return reject(e);
       }
