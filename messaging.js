@@ -104,7 +104,9 @@ function Transform(handler) {
 util.inherits(Transform, stream.Transform);
 
 Transform.prototype._transform = function(msg, encoding, done) {
-  this.handler(msg, this.push.bind(this), done);
+  this.handler(msg, this.push.bind(this));
+
+  done();
 };
 
 function Debug() {

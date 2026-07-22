@@ -17,9 +17,10 @@ const path = lazyRequire('path');
 
 let files = [];
 const sprocess = [];
+const listeners = {};
 
 const config = {
-  version: '1.0.8'
+  version: '1.1.0'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -159,12 +160,19 @@ function observe(msg, push, done) {
     };
     close = () => {
       process.removeListener('uncaughtException', exception);
+      if (msg.uuid) {
+        delete listeners[msg.uuid];
+      }
       done();
       close = () => {};
     };
     process.addListener('uncaughtException', exception);
 
     const vm = require('vm');
+    // only install observer if there is a uuid
+    if (msg.uuid) {
+      listeners[msg.uuid] = [];
+    }
     const sandbox = {
       version: config.version,
       env: process.env,
@@ -173,11 +181,38 @@ function observe(msg, push, done) {
       setTimeout,
       args: msg.args,
       // only allow internal modules that extension already requested permission for
-      require: name => (msg.permissions || []).indexOf(name) === -1 ? null : require(name)
+      require: name => (msg.permissions || []).indexOf(name) === -1 ? null : require(name),
+      connect: handle => listeners[msg.uuid].push(handle)
     };
-    const script = new vm.Script(msg.script);
-    const context = vm.createContext(sandbox);
-    script.runInContext(context);
+    try {
+      const script = new vm.Script(msg.script);
+      const context = vm.createContext(sandbox);
+      script.runInContext(context);
+    }
+    catch (e) {
+      push({
+        code: -1001,
+        type: 'exception',
+        error: e.message
+      });
+      close();
+    }
+  }
+  else if (msg.cmd === 'post-message') {
+    if (msg.uuid in listeners) {
+      listeners[msg.uuid].forEach(f => f(msg.data));
+      push({
+        type: 'report',
+        sent: listeners[msg.uuid].length
+      });
+    }
+    else {
+      push({
+        code: -1001,
+        type: 'exception',
+        error: 'no listener of this uuid'
+      });
+    }
   }
   else {
     let error = 'This version of the native client does not support "' + msg.cmd + '" command. Check for updates...';
