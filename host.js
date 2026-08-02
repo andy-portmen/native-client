@@ -20,7 +20,7 @@ const sprocess = [];
 const listeners = {};
 
 const config = {
-  version: '1.1.0'
+  version: '1.1.1'
 };
 // closing node when parent process is killed
 process.stdin.resume();
