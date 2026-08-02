@@ -45,7 +45,7 @@ function observe(msg, push, done) {
     });
     done();
   }
-  if (msg.cmd === 'spec') {
+  else if (msg.cmd === 'spec') {
     push({
       version: config.version,
       env: process.env,
@@ -163,7 +163,6 @@ function observe(msg, push, done) {
       if (msg.uuid) {
         delete listeners[msg.uuid];
       }
-      done();
       close = () => {};
     };
     process.addListener('uncaughtException', exception);
@@ -197,6 +196,8 @@ function observe(msg, push, done) {
       });
       close();
     }
+    // release the message pipeline; the script context stays alive to receive post-messages
+    done();
   }
   else if (msg.cmd === 'post-message') {
     if (msg.uuid in listeners) {
@@ -213,6 +214,7 @@ function observe(msg, push, done) {
         error: 'no listener of this uuid'
       });
     }
+    done();
   }
   else {
     let error = 'This version of the native client does not support "' + msg.cmd + '" command. Check for updates...';
