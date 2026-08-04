@@ -1,37 +1,23 @@
 'use strict';
 
-function lazyRequire(lib, name) {
-  if (!name) {
-    name = lib;
-  }
-  global.__defineGetter__(name, function() {
-    return require(lib);
-  });
-  return global[name];
-}
+// Deprecated commands
+const DEPRECATED = ['ifup', 'dir', 'save-data', 'net', 'copy', 'remove', 'move', 'clean-tmp', 'echo', 'version'];
 
-const spawn = require('child_process').spawn;
-const fs = lazyRequire('fs');
-const os = lazyRequire('os');
-const path = lazyRequire('path');
-
-let files = [];
 const sprocess = [];
-const listeners = {};
+const sessions = {};
 
 const config = {
-  version: '1.1.1'
+  version: '1.1.2'
 };
 // closing node when parent process is killed
 process.stdin.resume();
 process.stdin.on('end', () => {
-  files.forEach(file => {
+  for (const ps of sprocess) {
     try {
-      fs.unlink(file);
+      ps.kill();
     }
     catch (e) {}
-  });
-  sprocess.forEach(ps => ps.kill());
+  }
 
   process.exit();
 });
@@ -39,13 +25,9 @@ process.stdin.on('end', () => {
 // process.on('uncaughtException', e => console.error(e));
 
 function observe(msg, push, done) {
-  if (msg.cmd === 'version') {
-    push({
-      version: config.version
-    });
-    done();
-  }
-  else if (msg.cmd === 'spec') {
+  if (msg.cmd === 'spec') {
+    const os = require('os');
+    const path = require('path');
     push({
       version: config.version,
       env: process.env,
@@ -54,15 +36,19 @@ function observe(msg, push, done) {
     });
     done();
   }
-  else if (msg.cmd === 'echo') {
-    push(msg);
+  else if (msg.cmd === 'env') {
+    push({
+      env: process.env
+    });
     done();
   }
   else if (msg.cmd === 'spawn') {
+    const path = require('path');
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
     const p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    const spawn = require('child_process').spawn;
     const sp = spawn(p, msg.arguments || [], Object.assign({env: process.env}, msg.properties));
 
     if (msg.kill) {
@@ -90,24 +76,13 @@ function observe(msg, push, done) {
       sp.stdin.end();
     }
   }
-  else if (msg.cmd === 'clean-tmp') {
-    files.forEach(file => {
-      try {
-        fs.unlink(file);
-      }
-      catch (e) {}
-    });
-    files = [];
-    push({
-      code: 0
-    });
-    done();
-  }
   else if (msg.cmd === 'exec') {
+    const path = require('path');
     if (msg.env) {
       msg.env.forEach(n => process.env.PATH += path.delimiter + n);
     }
     const p = Array.isArray(msg.command) ? path.join(...msg.command) : msg.command;
+    const spawn = require('child_process').spawn;
     const sp = spawn(p, msg.arguments || [], Object.assign({
       env: process.env,
       detached: true
@@ -141,12 +116,6 @@ function observe(msg, push, done) {
       sp.unref();
     }
   }
-  else if (msg.cmd === 'env') {
-    push({
-      env: process.env
-    });
-    done();
-  }
   // this is from openstyles/native-client
   else if ('script' in msg) {
     let close;
@@ -161,7 +130,7 @@ function observe(msg, push, done) {
     close = () => {
       process.removeListener('uncaughtException', exception);
       if (msg.uuid) {
-        delete listeners[msg.uuid];
+        delete sessions[msg.uuid];
       }
       close = () => {};
     };
@@ -170,7 +139,7 @@ function observe(msg, push, done) {
     const vm = require('vm');
     // only install observer if there is a uuid
     if (msg.uuid) {
-      listeners[msg.uuid] = [];
+      sessions[msg.uuid] = [];
     }
     const sandbox = {
       version: config.version,
@@ -180,8 +149,9 @@ function observe(msg, push, done) {
       setTimeout,
       args: msg.args,
       // only allow internal modules that extension already requested permission for
-      require: name => (msg.permissions || []).indexOf(name) === -1 ? null : require(name),
-      connect: handle => listeners[msg.uuid].push(handle)
+      require: name => (msg.permissions || []).includes(name) ? require(name) : null,
+      // install a new session listener
+      connect: handle => sessions[msg.uuid].push(handle)
     };
     try {
       const script = new vm.Script(msg.script);
@@ -199,17 +169,38 @@ function observe(msg, push, done) {
     // release the message pipeline; the script context stays alive to receive post-messages
     done();
   }
+  // communicate with sandboxed sessions later
   else if (msg.cmd === 'post-message') {
-    if (msg.uuid in listeners) {
-      listeners[msg.uuid].forEach(f => f(msg.data));
-      push({
-        type: 'report',
-        sent: listeners[msg.uuid].length
-      });
+    if (msg.uuid in sessions) {
+      if (sessions[msg.uuid]) {
+        for (const f of sessions[msg.uuid]) {
+          try {
+            f(msg.data);
+          }
+          catch (e) {
+            push({
+              code: -1002,
+              type: 'exception',
+              error: e.message
+            });
+          }
+        }
+        push({
+          type: 'report',
+          sent: sessions[msg.uuid].length
+        });
+      }
+      else {
+        push({
+          code: -1003,
+          type: 'exception',
+          error: 'no session with "' + msg.uuid + '" id'
+        });
+      }
     }
     else {
       push({
-        code: -1001,
+        code: -1004,
         type: 'exception',
         error: 'no listener of this uuid'
       });
@@ -217,30 +208,33 @@ function observe(msg, push, done) {
     done();
   }
   else {
-    let error = 'This version of the native client does not support "' + msg.cmd + '" command. Check for updates...';
     // Display warning about old unsupported commands
-    if (['ifup', 'dir', 'save-data', 'net', 'copy', 'remove', 'move'].includes(msg.cmd)) {
-      error = 'The "' + msg.cmd + '" command is no longer supported in this version of the native client. ' +
+    if (DEPRECATED.includes(msg.cmd)) {
+      const error = 'The "' + msg.cmd + '" command is no longer supported in this version of the native client. ' +
         'Downgrade to version 0.9.7 if your extension requires this command.';
+      push({
+        error,
+        cmd: msg.cmd,
+        code: -1005
+      });
     }
-    push({
-      error,
-      cmd: msg.cmd,
-      code: 1000
-    });
-
+    else {
+      const error = 'This version of the native client does not support "' + msg.cmd + '" command. ' +
+        'Check for updates...';
+      push({
+        error,
+        cmd: msg.cmd,
+        code: -1006
+      });
+    }
     done();
   }
 }
 /* message passing */
-const nativeMessage = require('./messaging');
-
-const input = new nativeMessage.Input();
-const transform = new nativeMessage.Transform(observe);
-const output = new nativeMessage.Output();
+const {Input, Transform, Output} = require('./messaging');
 
 process.stdin
-  .pipe(input)
-  .pipe(transform)
-  .pipe(output)
+  .pipe(new Input())
+  .pipe(new Transform(observe))
+  .pipe(new Output())
   .pipe(process.stdout);

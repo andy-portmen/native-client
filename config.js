@@ -1,12 +1,13 @@
 'use strict';
 
+exports.description = 'NodeJS Host by WebExtension.ORG for Browser Native Messaging';
+
 exports.ids = {
   chrome: [
     'lmeddoobegbaiopohmpmmobpnpjifpii', // Open in Firefox (Chrome)
-    'mjoebkkejejidnkfdekpbooceogbapnf', // Open in Edge (Chrome) by @rynu.smith
+    'mjoebkkejejidnkfdekpbooceogbapnf', // Open in Edge (Chrome) [By @rynu.smith]
     'amojccmdnkdlcjcplmkijeenigbhfbpd', // Open in Opera (Chrome)
-    'looohpideggedchhpphemdmppnmdkgfd', // Open in IE (Chrome) by @rynu.smith
-    'ocnfecjfebnllnapjjoncgjnnkfmobjc', // Media Converter (Chrome) [By @InBasic]
+    'looohpideggedchhpphemdmppnmdkgfd', // Open in IE (Chrome) [By @rynu.smith]
     'jgpghknlbaljigdhcjimjnkkjniiipmm', // Open in GIMP (Chrome)
     'bifmfjgpgndemajpeeoiopbeilbaifdo', // External Application Button (Chrome)
     'ihpiinojhnfhpdmmacgmpoonphhimkaj', // Open in VLC (Chrome)

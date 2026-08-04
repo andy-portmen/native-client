@@ -9,7 +9,7 @@ if (share[0] === '~') {
   share = path.join(process.env.HOME, share.slice(1));
 }
 share = path.resolve(share);
-console.log(' -> Root directory is', share);
+console.log(' -> Browser configuration directory is', '\x1b[32m' + share +'\x1b[0m\n');
 
 function exists(directory, callback) {
   let root = '/';
@@ -43,30 +43,30 @@ function exists(directory, callback) {
 
 const dir = path.join(share, 'com.add0n.node');
 const name = 'com.add0n.node';
-const ids = require('./config.js').ids;
+const config = require('./config.js');
 
 function manifest(root, type) {
-  console.log(' -> Creating a directory at', root);
+  console.log(' -> Creating a directory at "' + root + '"');
   return new Promise((resolve, reject) => {
     exists(root, e => {
       if (e) {
         return reject(e);
       }
 
-      let origins;
+      const m = {
+        name,
+        description: config.description,
+        path: path.join(dir, 'run.sh'),
+        type: 'stdio'
+      };
       if (type === 'chrome') {
-        origins = '"allowed_origins": ' + JSON.stringify(ids.chrome.map(id => 'chrome-extension://' + id + '/'));
+        m.allowed_origins = config.ids.chrome.map(id => 'chrome-extension://' + id + '/');
       }
       else {
-        origins = '"allowed_extensions": ' + JSON.stringify(ids.firefox);
+        m.allowed_extensions = config.ids.firefox;
       }
-      fs.writeFile(path.join(root, name + '.json'), `{
-    "name": "${name}",
-    "description": "Node Host for Native Messaging",
-    "path": "${path.join(dir, 'run.sh')}",
-    "type": "stdio",
-    ${origins}
-  }`, e => {
+
+      fs.writeFile(path.join(root, name + '.json'), JSON.stringify(m, undefined, '  '), e => {
         if (e) {
           return reject(e);
         }
@@ -77,7 +77,7 @@ function manifest(root, type) {
 }
 
 function application(callback) {
-  console.log(' -> Creating a directory at', dir);
+  console.log('\n -> Application directory is', '\x1b[32m' + dir +'\x1b[0m');
   return new Promise((resolve, reject) => {
     exists(dir, e => {
       if (e) {
@@ -112,62 +112,38 @@ function application(callback) {
   });
 }
 
+const support = (name, type = 'browser') => {
+  console.log(' -> \x1b[1m' + name + '\x1b[0m ' + type + ' is supported');
+};
+
 async function chrome() {
-  if (ids.chrome.length) {
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/Google/Chrome/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Chrome Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/Chromium/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Chromium Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/Vivaldi/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Vivaldi Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/BraveSoftware/Brave-Browser/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Brave Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/Microsoft Edge/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Microsoft Edge Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/Comet/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Perplexity Comet Browser is supported');
+  if (config.ids.chrome.length) {
+    const LAS = 'Library/Application Support';
+    await manifest(path.join(process.env.HOME, LAS, 'Google/Chrome/NativeMessagingHosts'), 'chrome');
+    support('Chrome');
+    await manifest(path.join(process.env.HOME, LAS, 'Chromium/NativeMessagingHosts'), 'chrome');
+    support('Chromium');
+    await manifest(path.join(process.env.HOME, LAS, 'Vivaldi/NativeMessagingHosts'), 'chrome');
+    support('Vivaldi');
+    await manifest(path.join(process.env.HOME, LAS, 'BraveSoftware/Brave-Browser/NativeMessagingHosts'), 'chrome');
+    support('Brave');
+    await manifest(path.join(process.env.HOME, LAS, 'Microsoft Edge/NativeMessagingHosts'), 'chrome');
+    support('Microsoft Edge');
+    await manifest(path.join(process.env.HOME, LAS, 'Comet/NativeMessagingHosts'), 'chrome');
+    support('Perplexity Comet');
   }
 }
 async function firefox() {
-  if (ids.firefox.length) {
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/Mozilla/NativeMessagingHosts'
-    ), 'firefox');
-    console.log(' -> Firefox Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/Waterfox/NativeMessagingHosts'
-    ), 'firefox');
-    console.log(' -> Waterfox Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/TorBrowser-Data/Browser/Mozilla/NativeMessagingHosts'
-    ), 'firefox');
-    console.log(' -> Tor Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      'Library/Application Support/Thunderbird/NativeMessagingHosts'
-    ), 'firefox');
-    console.log(' -> Thunderbird Email Client is supported');
+  if (config.ids.firefox.length) {
+    const LAS = 'Library/Application Support';
+    await manifest(path.join(process.env.HOME, LAS, 'Mozilla/NativeMessagingHosts'), 'firefox');
+    support('Firefox');
+    await manifest(path.join(process.env.HOME, LAS, 'Waterfox/NativeMessagingHosts'), 'firefox');
+    support('Waterfox');
+    await manifest(path.join(process.env.HOME, LAS, 'TorBrowser-Data/Browser/Mozilla/NativeMessagingHosts'), 'firefox');
+    support('Tor');
+    await manifest(path.join(process.env.HOME, LAS, 'Thunderbird/NativeMessagingHosts'), 'firefox');
+    support('Thunderbird', 'email client');
   }
 }
 
@@ -176,8 +152,7 @@ async function firefox() {
     await chrome();
     await firefox();
     await application();
-    console.log(' -> Native Host is installed in', dir);
-    console.log('\n\n>>> host is ready <<<\n\n');
+    console.log('\n\n\x1b[1m>>> Native host is ready <<<\x1b[0m\n');
   }
   catch (e) {
     console.error(e);

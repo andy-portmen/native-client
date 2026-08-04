@@ -9,7 +9,7 @@ if (share[0] === '~') {
   share = path.join(process.env.HOME, share.slice(1));
 }
 share = path.resolve(share);
-console.log(' -> Root directory is', share);
+console.log(' -> Browser configuration directory is', '\x1b[32m' + share +'\x1b[0m\n');
 
 function exists(directory, callback) {
   let root = '/';
@@ -43,7 +43,7 @@ function exists(directory, callback) {
 
 const dir = path.join(share, 'com.add0n.node');
 const name = 'com.add0n.node';
-const ids = require('./config.js').ids;
+const config = require('./config.js');
 
 function manifest(root, type, executable = path.join(dir, 'run.sh')) {
   console.log(' -> Creating a directory at', root);
@@ -52,20 +52,20 @@ function manifest(root, type, executable = path.join(dir, 'run.sh')) {
       if (e) {
         return reject(e);
       }
-      let origins;
+      const m = {
+        name,
+        description: config.description,
+        path: executable,
+        type: 'stdio'
+      };
       if (type === 'chrome') {
-        origins = '"allowed_origins": ' + JSON.stringify(ids.chrome.map(id => 'chrome-extension://' + id + '/'));
+        m.allowed_origins = config.ids.chrome.map(id => 'chrome-extension://' + id + '/');
       }
       else {
-        origins = '"allowed_extensions": ' + JSON.stringify(ids.firefox);
+        m.allowed_extensions = config.ids.firefox;
       }
-      fs.writeFile(path.join(root, name + '.json'), `{
-    "name": "${name}",
-    "description": "Node Host for Native Messaging",
-    "path": "${executable}",
-    "type": "stdio",
-    ${origins}
-    }`, e => {
+
+      fs.writeFile(path.join(root, name + '.json'), JSON.stringify(m, undefined, '  '), e => {
         if (e) {
           return reject(e);
         }
@@ -75,11 +75,11 @@ function manifest(root, type, executable = path.join(dir, 'run.sh')) {
   });
 }
 function application() {
-  console.log(' -> Creating a directory at', dir);
+  console.log('\n -> Application directory is', '\x1b[32m' + dir +'\x1b[0m');
   return new Promise((resolve, reject) => {
     exists(dir, e => {
       if (e) {
-        console.log('\x1b[31m', `-> You dont have permission to use "${share}" directory.`, '\x1b[0m');
+        console.log('\x1b[31m', `-> You don't have permission to use "${share}" directory.`, '\x1b[0m');
         console.log('\x1b[31m', '-> Use custom directory instead. Example:', '\x1b[0m');
         console.log('\x1b[31m', '-> ./install.sh --custom-dir=~/', '\x1b[0m');
 
@@ -107,62 +107,39 @@ function application() {
     });
   });
 }
+
+const support = (name, type = 'browser') => {
+  console.log(' -> \x1b[1m' + name + '\x1b[0m ' + type + ' is supported');
+};
+
 async function chrome() {
-  if (ids.chrome.length) {
-    await manifest(path.join(
-      process.env.HOME,
-      '.config/google-chrome/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Chrome Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      '.config/chromium/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Chromium Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      '.config/vivaldi/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Vivaldi Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      '.config/BraveSoftware/Brave-Browser/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Brave Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      '.config/microsoftedge/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Microsoft Edge Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      '.config/comet/NativeMessagingHosts'
-    ), 'chrome');
-    console.log(' -> Perplexity Comet Browser is supported');
+  if (config.ids.chrome.length) {
+    await manifest(path.join(process.env.HOME, '.config/google-chrome/NativeMessagingHosts'), 'chrome');
+    support('Chrome');
+    await manifest(path.join(process.env.HOME, '.config/chromium/NativeMessagingHosts'), 'chrome');
+    support('Chromium Browser');
+    await manifest(path.join(process.env.HOME, '.config/vivaldi/NativeMessagingHosts'), 'chrome');
+    support('Vivaldi');
+    await manifest(path.join(process.env.HOME, '.config/BraveSoftware/Brave-Browser/NativeMessagingHosts'), 'chrome');
+    support('Brave');
+    await manifest(path.join(process.env.HOME, '.config/microsoftedge/NativeMessagingHosts'), 'chrome');
+    support('Microsoft Edge');
+    await manifest(path.join(process.env.HOME, '.config/comet/NativeMessagingHosts'), 'chrome');
+    support('Perplexity Comet');
   }
 }
 async function firefox() {
-  if (ids.firefox.length) {
+  if (config.ids.firefox.length) {
+    await manifest(path.join(process.env.HOME, '.mozilla/native-messaging-hosts'), 'firefox');
+    support('Firefox');
+    await manifest(path.join(process.env.HOME, '.waterfox/native-messaging-hosts'), 'firefox');
+    support('Waterfox');
     await manifest(path.join(
-      process.env.HOME,
-      '.mozilla/native-messaging-hosts'
+      process.env.HOME, '.tor-browser/app/Browser/TorBrowser/Data/Browser/.mozilla/native-messaging-hosts'
     ), 'firefox');
-    console.log(' -> Firefox Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      '.waterfox/native-messaging-hosts'
-    ), 'firefox');
-    console.log(' -> Waterfox Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      '.tor-browser/app/Browser/TorBrowser/Data/Browser/.mozilla/native-messaging-hosts'
-    ), 'firefox');
-    console.log(' -> Tor Browser is supported');
-    await manifest(path.join(
-      process.env.HOME,
-      '.thunderbird/native-messaging-hosts'
-    ), 'firefox');
-    console.log(' -> Thunderbird Email Client is supported');
+    support('Tor');
+    await manifest(path.join(process.env.HOME, '.thunderbird/native-messaging-hosts'), 'firefox');
+    support('Thunderbird', 'email client');
   }
 }
 
@@ -237,8 +214,8 @@ async function flatpak() {
     const browser = FLATPAK_BROWSERS[appId];
     if (browser) {
       // Check if we should install for this browser type
-      if ((browser.type === 'chrome' && ids.chrome.length) ||
-          (browser.type === 'firefox' && ids.firefox.length)) {
+      if ((browser.type === 'chrome' && config.ids.chrome.length) ||
+          (browser.type === 'firefox' && config.ids.firefox.length)) {
         try {
           const manifestPath = path.join(
             process.env.HOME,
@@ -264,7 +241,7 @@ flatpak-spawn --host sh -c '
           }));
 
           await manifest(manifestPath, browser.type, exe);
-          console.log(` -> ${browser.name} is supported`);
+          support(browser.name);
           count++;
         }
         catch (e) {
@@ -285,8 +262,7 @@ flatpak-spawn --host sh -c '
     await firefox();
     await flatpak();
     await application();
-    console.log(' => Native Host is installed in', dir);
-    console.log('\n\n>>> host is ready <<<\n\n');
+    console.log('\n\n\x1b[1m>>> Native host is ready <<<\x1b[0m\n');
   }
   catch (e) {
     console.error(e);

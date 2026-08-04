@@ -19,7 +19,7 @@ function exists(directory, callback) {
 const name = 'com.add0n.node';
 const dir = path.join(process.argv[2], name);
 
-const ids = require(path.join(__dirname, 'config.js')).ids;
+const config = require(path.join(__dirname, 'config.js'));
 
 function manifest(type) {
   return new Promise((resolve, reject) => {
@@ -27,20 +27,19 @@ function manifest(type) {
       if (e) {
         return reject(e);
       }
-      let origins;
+      const m = {
+        name,
+        description: config.description,
+        path: 'run.bat',
+        type: 'stdio'
+      };
       if (type === 'chrome') {
-        origins = '"allowed_origins": ' + JSON.stringify(ids.chrome.map(id => 'chrome-extension://' + id + '/'));
+        m.allowed_origins = config.ids.chrome.map(id => 'chrome-extension://' + id + '/');
       }
       else {
-        origins = '"allowed_extensions": ' + JSON.stringify(ids.firefox);
+        m.allowed_extensions = config.ids.firefox;
       }
-      fs.writeFile(path.join(dir, 'manifest-' + type + '.json'), `{
-    "name": "${name}",
-    "description": "Node Host for Native Messaging",
-    "path": "run.bat",
-    "type": "stdio",
-    ${origins}
-  }`, e => {
+      fs.writeFile(path.join(dir, 'manifest-' + type + '.json'), JSON.stringify(m, undefined, '  '), e => {
         if (e) {
           return reject(e);
         }
@@ -76,13 +75,13 @@ ${copyNode ? '"%~dp0node.exe"' : 'node.exe'} "%~dp0host.js"`, e => {
 }
 
 async function chrome() {
-  if (ids.chrome.length) {
+  if (config.ids.chrome.length) {
     await manifest('chrome');
     console.log('.. Chrome Browser is supported');
   }
 }
 async function firefox() {
-  if (ids.firefox.length) {
+  if (config.ids.firefox.length) {
     await manifest('firefox');
     console.log('.. Firefox Browser is supported');
   }

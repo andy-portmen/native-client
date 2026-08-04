@@ -107,22 +107,6 @@ Transform.prototype._transform = function(msg, encoding, done) {
   this.handler(msg, this.push.bind(this), done);
 };
 
-function Debug() {
-  stream.Transform.call(this);
-
-  this._writableState.objectMode = true;
-  this._readableState.objectMode = false;
-}
-
-util.inherits(Debug, stream.Transform);
-
-Debug.prototype._transform = function(chunk, encoding, done) {
-  this.push(JSON.stringify(chunk) + '\n');
-
-  done();
-};
-
 exports.Input = Input;
 exports.Output = Output;
 exports.Transform = Transform;
-exports.Debug = Debug;
