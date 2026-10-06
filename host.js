@@ -7,7 +7,7 @@ const sprocess = [];
 const sessions = {};
 
 const config = {
-  version: '1.1.4'
+  version: '1.1.5'
 };
 // closing node when parent process is killed
 process.stdin.resume();

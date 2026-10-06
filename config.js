@@ -59,6 +59,7 @@ exports.ids = {
     'ciphgjdgpkhlngiadnpebblpcjcoabcp', // Open in PDF viewer (Edge)
     'hmkmedgmocnmelekbdpogdpednpfjdne', // Country Flags (Edge)
     'apldpaggahklckhcoaoifaolmifdnecg', // Media Converter (Edge) [By @InBasic]
+    'glpdecdihfbbffanidologialmmelioh', // Libre Email Client (Edge) [By @brian-girko]
   ],
   firefox: [
     '{b8fa78dd-dae1-4839-9d0e-ce5e213083ce}', // Open in GIMP

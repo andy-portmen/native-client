@@ -132,7 +132,7 @@ async function chrome() {
       .then(() => support('Vivaldi')).catch(e => support('Vivaldi', 'browser', e));
     await manifest(path.join(process.env.HOME, LAS, 'BraveSoftware/Brave-Browser/NativeMessagingHosts'), 'chrome')
       .then(() => support('Brave')).catch(e => support('Brave', 'browser', e));
-    await manifest(path.join(process.env.HOME, LAS, 'Microsoft Edge/NativeMessagingHosts'), 'chrome');
+    await manifest(path.join(process.env.HOME, LAS, 'Microsoft Edge/NativeMessagingHosts'), 'chrome')
       .then(() => support('Microsoft Edge')).catch(e => support('Microsoft Edge', 'browser', e));
     await manifest(path.join(process.env.HOME, LAS, 'Comet/NativeMessagingHosts'), 'chrome')
       .then(() => support('Perplexity Comet')).catch(e => support('Perplexity Comet', 'browser', e));
