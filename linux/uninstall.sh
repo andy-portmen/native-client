@@ -12,6 +12,8 @@ echo " -> Removing manifest file for Microsoft Edge"
 rm -f ~/.config/microsoftedge/NativeMessagingHosts/com.add0n.node.json
 echo " -> Removing manifest file for Mozilla Firefox"
 rm -f ~/.mozilla/native-messaging-hosts/com.add0n.node.json
+# Firefox 147+ (XDG Base Directory): remove manifest from the new location too
+rm -f "${XDG_CONFIG_HOME:-$HOME/.config}/mozilla/native-messaging-hosts/com.add0n.node.json"
 echo " -> Removing manifest file for Waterfox"
 rm -f ~/.waterfox/native-messaging-hosts/com.add0n.node.json
 echo " -> Removing manifest file for Tor"
@@ -27,6 +29,7 @@ rm -f ~/.var/app/com.brave.Browser/config/BraveSoftware/Brave-Browser/NativeMess
 rm -f ~/.var/app/com.microsoft.Edge/config/microsoftedge/NativeMessagingHosts/com.add0n.node.json
 rm -f ~/.var/app/com.vivaldi.Vivaldi/config/vivaldi/NativeMessagingHosts/com.add0n.node.json
 rm -f ~/.var/app/org.mozilla.firefox/.mozilla/native-messaging-hosts/com.add0n.node.json
+rm -f ~/.var/app/org.mozilla.firefox/config/mozilla/native-messaging-hosts/com.add0n.node.json
 rm -f ~/.var/app/io.gitlab.librewolf-community/.librewolf/native-messaging-hosts/com.add0n.node.json
 
 echo " -> Removing executables"
