@@ -123,15 +123,21 @@ async function chrome() {
     await manifest(path.join(process.env.HOME, '.config/BraveSoftware/Brave-Browser/NativeMessagingHosts'), 'chrome')
       .then(() => support('Brave')).catch(e => support('Brave', 'browser', e));
     await manifest(path.join(process.env.HOME, '.config/microsoftedge/NativeMessagingHosts'), 'chrome')
-      .then(() => support('ChroMicrosoft Edgeme')).catch(e => support('Chrome', 'browser', e));
+      .then(() => support('Microsoft Edge')).catch(e => support('Chrome', 'browser', e));
     await manifest(path.join(process.env.HOME, '.config/comet/NativeMessagingHosts'), 'chrome')
       .then(() => support('Perplexity Comet')).catch(e => support('Perplexity Comet', 'browser', e));
   }
 }
 async function firefox() {
   if (config.ids.firefox.length) {
+    // Firefox 147+ follows the XDG Base Directory specification and looks for
+    // native messaging manifests in $XDG_CONFIG_HOME/mozilla (formerly ~/.mozilla).
+    // Write to both locations to support both old and new versions of Firefox.
+    const xdgConfigHome = process.env.XDG_CONFIG_HOME || path.join(process.env.HOME, '.config');
     await manifest(path.join(process.env.HOME, '.mozilla/native-messaging-hosts'), 'firefox')
-      .then(() => support('Firefox')).catch(e => support('Firefox', 'browser', e));
+      .then(() => support('Firefox (147-)')).catch(e => support('Firefox (147-)', 'browser', e));
+    await manifest(path.join(xdgConfigHome, 'mozilla/native-messaging-hosts'), 'firefox')
+      .then(() => support('Firefox (147+)')).catch(e => support('Firefox (147+)', 'browser', e));
     await manifest(path.join(process.env.HOME, '.waterfox/native-messaging-hosts'), 'firefox')
       .then(() => support('Waterfox')).catch(e => support('Waterfox', 'browser', e));
     await manifest(path.join(
@@ -183,6 +189,7 @@ const FLATPAK_BROWSERS = {
   // Firefox-based browsers
   'org.mozilla.firefox': {
     path: '.mozilla/native-messaging-hosts',
+    xdgPath: 'config/mozilla/native-messaging-hosts',
     type: 'firefox',
     name: 'Firefox (Flatpak)'
   },
@@ -215,36 +222,43 @@ async function flatpak() {
       // Check if we should install for this browser type
       if ((browser.type === 'chrome' && config.ids.chrome.length) ||
           (browser.type === 'firefox' && config.ids.firefox.length)) {
-        try {
-          const manifestPath = path.join(
-            process.env.HOME,
-            '.var/app',
-            appId,
-            browser.path
-          );
+        const paths = [browser.path];
+        // Firefox 147+ uses $XDG_CONFIG_HOME/mozilla instead of .mozilla
+        if (browser.xdgPath) {
+          paths.push(browser.xdgPath);
+        }
+        for (const browserPath of paths) {
+          try {
+            const manifestPath = path.join(
+              process.env.HOME,
+              '.var/app',
+              appId,
+              browserPath
+            );
 
-          // write wrapper
-          const run = `#!/bin/sh
+            // write wrapper
+            const run = `#!/bin/sh
 
 flatpak-spawn --host sh -c '
   cd ${dir}/ || exit 1
   exec ./run.sh
 '`;
-          const exe = path.join(manifestPath, `${name}.sh`);
-          await new Promise((resolve, reject) => fs.writeFile(exe, run, e => {
-            if (e) {
-              return reject(e);
-            }
-            fs.chmodSync(exe, '0755');
-            resolve();
-          }));
+            const exe = path.join(manifestPath, `${name}.sh`);
+            await new Promise((resolve, reject) => fs.writeFile(exe, run, e => {
+              if (e) {
+                return reject(e);
+              }
+              fs.chmodSync(exe, '0755');
+              resolve();
+            }));
 
-          await manifest(manifestPath, browser.type, exe);
-          support(browser.name);
-          count++;
-        }
-        catch (e) {
-          console.error(` -> Warning: Failed to install manifest for ${browser.name}:`, e.message);
+            await manifest(manifestPath, browser.type, exe);
+            support(browser.name);
+            count++;
+          }
+          catch (e) {
+            console.error(` -> Warning: Failed to install manifest for ${browser.name}:`, e.message);
+          }
         }
       }
     }
