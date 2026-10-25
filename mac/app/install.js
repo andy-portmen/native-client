@@ -59,8 +59,9 @@ function manifest(root, type) {
         path: path.join(dir, 'run.sh'),
         type: 'stdio'
       };
-      if (type === 'chrome') {
-        m.allowed_origins = config.ids.chrome.map(id => 'chrome-extension://' + id + '/');
+      if (type === 'chrome' || type === 'helium') {
+        const ids = type === 'helium' && config.ids.helium && config.ids.helium.length ? config.ids.helium : config.ids.chrome;
+        m.allowed_origins = ids.map(id => 'chrome-extension://' + id + '/');
       }
       else {
         m.allowed_extensions = config.ids.firefox;
@@ -136,6 +137,11 @@ async function chrome() {
       .then(() => support('Microsoft Edge')).catch(e => support('Microsoft Edge', 'browser', e));
     await manifest(path.join(process.env.HOME, LAS, 'Comet/NativeMessagingHosts'), 'chrome')
       .then(() => support('Perplexity Comet')).catch(e => support('Perplexity Comet', 'browser', e));
+  }
+  if ((config.ids.helium && config.ids.helium.length) || config.ids.chrome.length) {
+    const LAS = 'Library/Application Support';
+    await manifest(path.join(process.env.HOME, LAS, 'net.imput.helium/NativeMessagingHosts'), 'helium')
+      .then(() => support('Helium')).catch(e => support('Helium', 'browser', e));
   }
 }
 async function firefox() {
