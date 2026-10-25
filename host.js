@@ -7,7 +7,7 @@ const sprocess = [];
 const sessions = {};
 
 const config = {
-  version: '1.1.6'
+  version: '1.1.7'
 };
 // closing node when parent process is killed
 process.stdin.resume();
@@ -39,6 +39,12 @@ function observe(msg, push, done) {
   else if (msg.cmd === 'env') {
     push({
       env: process.env
+    });
+    done();
+  }
+  else if (msg.cmd === 'version') {
+    push({
+      version: config.version
     });
     done();
   }
