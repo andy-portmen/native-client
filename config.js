@@ -89,6 +89,5 @@ exports.ids = {
     '{00186e07-f704-41ce-90aa-b09d4f49a7db}', // Open in PDF-XChange Viewer [By @lunu-bounir]
     '{c88f6be2-3757-446b-be27-27eedddbcae0}', // Open in Brave [By @brian-girko]
     '{73e2414b-dc86-4e63-8ac6-231e8efe870c}', // Open in Sumatra
-    '{f3c1e0d5-4a2b-4e7f-8c6b-9f1e2d3a4b5c}', // Open in Helium
   ]
 };
