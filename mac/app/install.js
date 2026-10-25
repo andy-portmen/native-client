@@ -112,7 +112,7 @@ function application(callback) {
   });
 }
 
-const support = (name, type = 'browser', e) => {
+const support = (name, type = 'browser', e) => { 
   if (e) {
     console.log(' -> \x1b[1m' + name + '\x1b[0m ' + type + ' is NOT supported - ' + e.message);
   }
@@ -136,6 +136,8 @@ async function chrome() {
       .then(() => support('Microsoft Edge')).catch(e => support('Microsoft Edge', 'browser', e));
     await manifest(path.join(process.env.HOME, LAS, 'Comet/NativeMessagingHosts'), 'chrome')
       .then(() => support('Perplexity Comet')).catch(e => support('Perplexity Comet', 'browser', e));
+    await manifest(path.join(process.env.HOME, LAS, 'net.imput.helium/NativeMessagingHosts'), 'chrome')
+      .then(() => support('Helium')).catch(e => support('Helium', 'browser', e));
   }
 }
 async function firefox() {
