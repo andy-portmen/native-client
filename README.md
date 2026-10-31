@@ -36,3 +36,23 @@ Notes:
 3. Removing the native client [Linux and Mac]: As of version 0.2.1, the installer prints all the directories it creates or inserts scripts in. Basically on Linux and Mac, two JSON files are inserted to predefined directories and a root directory is created which contains all the files. To remove the program simply delete the root directory and delete the two generated manifest JSON files. Path to all these files will be printed during installation
 4. Removing the native client [windows]: On Windows OS, a directory is created in the "%LocalAPPData;" and all the files are inserted in this directory. To remove the program, simply delete this directory. Also note that two registry entries are also added so that Chrome, Opera, and Firefox browsers can find the actual executable. Path to these registry entries are also printed during installation. You can use "uninstall.bat" to remove all files and registries.
 5. If you don't remember where the files are, simply run the installer one more time. It just overwrites all the files.
+
+## OpenBSD
+
+Node.js cannot be downloaded on OpenBSD (there are no official Node binaries for it), so install it with the package system first and then run the installer:
+
+```sh
+doas pkg_add node
+./install.sh
+```
+
+Since Chromium is confined with `unveil(2)`, the native host paths must be added to `${SYSCONFDIR}/chromium/unveil.main` (in the style of other native messaging ports, such as web-eid):
+
+```
+# native-client (com.add0n.node) native messaging host
+/usr/local/bin/node rx
+~/.config/com.add0n.node rx
+```
+
+The installer prints the exactly matching rules at the end of the run, including any `--custom-dir=` overrides.
+

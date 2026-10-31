@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 cd linux
 zip ../linux.zip -9 -r * -x "*.DS_Store"

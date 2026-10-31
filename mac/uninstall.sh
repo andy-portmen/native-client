@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 echo " -> Removing manifest file for Google Chrome"
 rm -f ~/Library/Application\ Support/Google/Chrome/NativeMessagingHosts/com.add0n.node.json
